@@ -1,0 +1,38 @@
+
+Home page:
+
+Work items API - Later
+
+Logged In user information - To display on top right corner (Image required?)
+Home Page Link - Redirect to identity Now based on Env
+Cancel - Should logout? or Work items Page?
+Validate URL API
+
+
+HelpDesk:
+
+New hire user details API
+Access Modal user Info?
+Manager Info
+Overring Manager List API
+Submit Changes API
+
+Manager Access:
+
+Step1:
+New hire user details (can use HelpDesk API)
+
+Step2:
+Access Model User/Access Options
+Select Access Model User
+Entitlements details with pagination and Filter
+
+Step3:
+Elevated access Entitlements details with pagination and Filter
+
+Step4:
+UI will display based on the previous sections data
+Submit Changes API
+
+Generic API's
+Error handling for API's
