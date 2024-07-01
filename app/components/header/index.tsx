@@ -12,25 +12,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 import logo from '../../assets/point72-logo.png';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
+import * as Styled from './header.styles';
 
 export default function Header() {
   const { data: session } = useSession();
-
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position='static'
-        style={{
-          background: 'linear-gradient(180deg, #014B81 0%, #025E9E 100%)',
-          color: '#fff',
-        }}
-      >
-        <Toolbar>
-          <div style={{ display: 'flex' }}>
+    <Styled.Container>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position='static'>
+          <Toolbar>
             <Image src={logo} alt='' width={100} height={40} />
-          </div>
-        </Toolbar>
-      </AppBar>
-    </Box>
+            <Styled.HomeContainer>
+              <div>Home</div>
+              {session?.user?.displayName}
+            </Styled.HomeContainer>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </Styled.Container>
   );
 }
