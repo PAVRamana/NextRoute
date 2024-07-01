@@ -1,13 +1,10 @@
-
 Home page:
-
-Work items API - Later
 
 Logged In user information - To display on top right corner (Image required?)
 Home Page Link - Redirect to identity Now based on Env
-Cancel - Should logout? or Work items Page?
-Validate URL API
-
+Cancel - Should logout now (Later Work items Page)
+Validate browser URL API 
+Work items API - Later
 
 HelpDesk:
 
