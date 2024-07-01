@@ -2,13 +2,13 @@
 
 import { useSession } from 'next-auth/react';
 import { StyledEngineProvider } from '@mui/material/styles';
-import MenuBar from './menu';
+import Header from './components/header';
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <StyledEngineProvider injectFirst>
-      {session ? <MenuBar /> : <div>Loading...</div>}
+      {session ? <Header /> : <div>Loading...</div>}
     </StyledEngineProvider>
   );
 }
