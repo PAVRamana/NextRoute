@@ -11,5 +11,4 @@ export default async function ServerComponent() {
   });
   let api = new AccountsApi(apiConfig);
   const val = await api.listAccounts();
-  console.log(val);
 }

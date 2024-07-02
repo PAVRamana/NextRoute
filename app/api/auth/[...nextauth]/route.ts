@@ -16,11 +16,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, account, profile }) {
       // First login
+
       if (account && user && profile) {
         token.accessToken = account.access_token;
         token.id = profile.id;
         token.tenant = profile.tenant;
         token.displayName = profile.displayName;
+        token.firstname = profile.firstname;
+        token.lastname = profile.lastname;
         token.name = profile.uid;
         token.capabilities = profile.capabilities;
         token.accessTokenExpires = account.expires_at!;
@@ -42,6 +45,8 @@ export const authOptions: NextAuthOptions = {
       session.user.capabilities = token.capabilities as string[];
       session.user.tenant = token.tenant as string;
       session.user.name = token.name as string;
+      session.user.firstname = token.firstname as string;
+      session.user.lastname = token.lastname as string;
       session.user.uid = token.name as string;
       session.user.displayName = token.displayName as string;
       return session;

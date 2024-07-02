@@ -2,13 +2,22 @@
 
 import { useSession } from 'next-auth/react';
 import { StyledEngineProvider } from '@mui/material/styles';
-import Header from './components/header';
+import LandingPage from './components';
+import FullPageLoader from './components/common/full-page-loader';
+import Header from './components/common/header';
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <StyledEngineProvider injectFirst>
-      {session ? <Header /> : <div>Loading...</div>}
+      {session ? (
+        <LandingPage />
+      ) : (
+        <div>
+          <Header isPage={true} />
+          <FullPageLoader />
+        </div>
+      )}
     </StyledEngineProvider>
   );
 }

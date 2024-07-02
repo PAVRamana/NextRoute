@@ -2,9 +2,8 @@ Home page:
 
 Logged In user information - To display on top right corner (Image required?)
 Home Page Link - Redirect to identity Now based on Env
-Cancel - Should logout now (Later Work items Page)
 Validate browser URL API 
-Work items API - Later
+Work items API
 
 HelpDesk:
 
@@ -31,5 +30,10 @@ Step4:
 UI will display based on the previous sections data
 Submit Changes API
 
-Generic API's
+Generic UI
+Load Mask
+Redux
 Error handling for API's
+
+http://localhost:3000/?formType=approval&workItemId=32322432
+http://localhost:3000/?formType=helpdesk&workItemId=32322432

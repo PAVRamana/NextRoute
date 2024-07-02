@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { use } from 'react';
 import SessionWrapper from './components/SessionWrapper';
-import ServerComponent from './server';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Next Auth Route POC',
+  title: 'New Jointer Form Application',
 };
 
 export default function RootLayout({
@@ -15,12 +13,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  //use(ServerComponent());
   return (
     <>
       <SessionWrapper>
         <html lang='en'>
-          <body className={inter.className}>{children}</body>
+          <body
+            className={inter.className}
+            style={{ margin: 0, background: '#f2f5f7' }}
+          >
+            {children}
+          </body>
         </html>
       </SessionWrapper>
     </>
