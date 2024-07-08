@@ -71,7 +71,6 @@ export default function AccessModalUserSection() {
     }
   }, [open]);
 
-  console.log(selectedManagerInfo);
   return (
     <Styled.Container>
       <InstructionsNote

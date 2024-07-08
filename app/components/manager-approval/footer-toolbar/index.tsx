@@ -44,7 +44,7 @@ function ManagerFooterToolbar({
         Object.keys(step2Info?.selectedManagerInfo)?.length === 0
       );
     } else if (index === 2) {
-      return true;
+      return step3Info?.selectedEntitilementData?.rows?.length === 0;
     } else if (index === 3) {
       return true;
     } else if (index === 4) {

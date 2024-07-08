@@ -60,7 +60,6 @@ type DataGridTypes = {
   tableData?: any;
   applyFilterOnTable?: boolean;
   resetExecuteFilterFlag?: () => void;
-  setIsGridRendered: () => void;
 };
 
 export default function DataGrid({
@@ -75,7 +74,6 @@ export default function DataGrid({
   updateRowSelections,
   tableData,
   applyFilterOnTable,
-  setIsGridRendered,
   resetExecuteFilterFlag,
 }: DataGridTypes) {
   const [rowSelection, setRowSelection] = useState<RowSelections>({});
@@ -122,10 +120,6 @@ export default function DataGrid({
       resetExecuteFilterFlag && resetExecuteFilterFlag();
     }
   }, [dataQuery]);
-
-  useEffect(() => {
-    setIsGridRendered();
-  }, []);
 
   const loadStaticData = () => {
     // await new Promise((r) => setTimeout(r, 5000));
@@ -313,7 +307,7 @@ export default function DataGrid({
   useEffect(() => {
     if (
       currentSelectedRows &&
-      currentSelectedRows?.length >= 0 &&
+      currentSelectedRows?.length > 0 &&
       isRowSelectionRequired
     ) {
       saveSelectedRowsData && saveSelectedRowsData(currentSelectedRows);

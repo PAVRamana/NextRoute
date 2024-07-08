@@ -14,40 +14,7 @@ export default function GeneralAccess() {
   const { step3Info } = approvalsData;
   const { selectedEntitilementData } = step3Info;
 
-  console.log(step3Info);
-
-  const [executeFilterOnTable, setExecuteFilterOnTable] =
-    React.useState<boolean>(false);
-
-  const [isGridRendered, setIsGridRendered] = React.useState<boolean>(false);
-
-  const mockData = {
-    headers: [
-      { accessor: 'application', Header: 'Application' },
-      { accessor: 'entitlement', Header: 'Entitlement' },
-    ],
-    objects: [
-      {
-        application: 'Test Native Changes',
-        entitlement: 'APM Live Changes for other items',
-        id: 1,
-      },
-      {
-        application: 'Test Native Changes',
-        entitlement: 'APM Live Changes for other items',
-        id: 2,
-      },
-      {
-        application: 'Test Native Changes',
-        entitlement: 'APM Live Changes for other items',
-        id: 3,
-      },
-    ],
-    count: 3,
-  };
-
   const saveSelectedRowsData = (selectedRows: any) => {
-    console.log(selectedRows);
     dispatch(
       setStep3Info({
         data: {
@@ -59,17 +26,6 @@ export default function GeneralAccess() {
       })
     );
   };
-
-  React.useEffect(() => {
-    dispatch(
-      setStep3Info({
-        data: {
-          ...step3Info,
-          selectedEntitilementData: { rows: mockData?.objects },
-        },
-      })
-    );
-  }, []);
 
   const getPreselectedRowsData = (data: any): RowSelections => {
     if (data?.length > 0) {
@@ -84,7 +40,7 @@ export default function GeneralAccess() {
         selectedEntitilementData?.rows?.forEach((selectedItem: any) => {
           data?.forEach((row: any, index: number) => {
             if (selectedItem?.id === row?.id) {
-              preSelectedIndexData['' + index] = false;
+              preSelectedIndexData['' + index] = true;
             }
           });
         });
@@ -122,10 +78,8 @@ export default function GeneralAccess() {
             minSize: 20,
             maxSize: 200,
           }}
-          //tableData={mockData}
           //applyFilterOnTable={executeFilterOnTable}
           //resetExecuteFilterFlag={() => setExecuteFilterOnTable(false)}
-          setIsGridRendered={() => setIsGridRendered(true)}
         />
       </Styled.GeneralAccessContainer>
       <Styled.EmptyWrapper />
