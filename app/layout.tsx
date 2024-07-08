@@ -19,7 +19,11 @@ export default function RootLayout({
         <html lang='en'>
           <body
             className={inter.className}
-            style={{ margin: 0, background: '#f2f5f7' }}
+            style={{
+              margin: 0,
+              background: '#f2f5f7',
+              font: "400 14px/20px Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+            }}
           >
             {children}
           </body>

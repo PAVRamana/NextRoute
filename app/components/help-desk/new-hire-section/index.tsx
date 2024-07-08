@@ -1,9 +1,16 @@
 'use client';
 
+import { Typography } from '@mui/material';
 import * as React from 'react';
+import RenderTypography from '../../common/components/typography';
+import InstructionsNote from '../../common/instructions-note';
 import * as Styled from './newHireSection.styles';
 
-export default function NewHireSection() {
+type NewHireSectionTypes = {
+  isApproval?: true;
+};
+
+export default function NewHireSection({ isApproval }: NewHireSectionTypes) {
   const userData = [
     { title: 'Display Name', value: 'DMatheson' },
     { title: 'User ID', value: '12142134' },
@@ -26,48 +33,65 @@ export default function NewHireSection() {
 
   return (
     <Styled.Container>
+      <InstructionsNote
+        title='NEW HIRE DETAILS'
+        notes={[
+          'Below is the details of the new hire. Please review.',
+          'When done, click the green Next button at the bottom.',
+        ]}
+      />
       <Styled.MainRoot>
         <Styled.UserInfoSection>
           <Styled.UserInfoTitleSection>
-            <Styled.UserInfoTitle>Dave Matheson</Styled.UserInfoTitle>
-            <Styled.UserInfoDesignation>
+            <Typography variant='h5' gutterBottom style={{ fontWeight: '700' }}>
+              Dave Matheson
+            </Typography>
+            <Typography variant='h6' gutterBottom>
               System Administrator
-            </Styled.UserInfoDesignation>
+            </Typography>
           </Styled.UserInfoTitleSection>
           <Styled.UserSectionContainer>
             {userData?.map((item, index: number) => {
               return (
-                <Styled.SectionInfo key={index}>
-                  <Styled.Title>{item?.title}</Styled.Title>
-                  <Styled.Value>{item?.value}</Styled.Value>
-                </Styled.SectionInfo>
+                <div key={index}>
+                  <RenderTypography title={item?.title} />
+                  <Typography variant='body2'>{item?.value}</Typography>
+                </div>
               );
             })}
           </Styled.UserSectionContainer>
         </Styled.UserInfoSection>
         <Styled.RootContainer>
           <Styled.PersonalInfoSection>
-            <Styled.SectionTitle>Personal Info</Styled.SectionTitle>
+            <Typography variant='h6' gutterBottom>
+              Personal Info
+            </Typography>
             <Styled.SectionContainer>
               {personalData?.map((item, index: number) => {
                 return (
                   <Styled.SectionInfo key={index}>
-                    <Styled.Title>{item?.title}</Styled.Title>
-                    <Styled.Value>{item?.value}</Styled.Value>
+                    <RenderTypography title={item?.title} />
+                    <Typography variant='body2' gutterBottom>
+                      {item?.value}
+                    </Typography>
                   </Styled.SectionInfo>
                 );
               })}
             </Styled.SectionContainer>
           </Styled.PersonalInfoSection>
-          <Styled.Line></Styled.Line>
+          <Styled.Line />
           <Styled.CompanyInfoSection>
-            <Styled.SectionTitle>Company Info</Styled.SectionTitle>
+            <Typography variant='h6' gutterBottom>
+              Company Info
+            </Typography>
             <Styled.SectionContainer>
               {companyData?.map((item, index: number) => {
                 return (
                   <Styled.SectionInfo key={index}>
-                    <Styled.Title>{item?.title}</Styled.Title>
-                    <Styled.Value>{item?.value}</Styled.Value>
+                    <RenderTypography title={item?.title} />
+                    <Typography variant='body2' gutterBottom>
+                      {item?.value}
+                    </Typography>
                   </Styled.SectionInfo>
                 );
               })}
@@ -75,6 +99,7 @@ export default function NewHireSection() {
           </Styled.CompanyInfoSection>
         </Styled.RootContainer>
       </Styled.MainRoot>
+      {isApproval && <Styled.EmptyWrapper />}
     </Styled.Container>
   );
 }

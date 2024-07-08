@@ -45,10 +45,6 @@ export const UserName = styled.div`
   font-weight: 500;
 `;
 
-export const Logout = styled.div``;
-
-export const DisplayName = styled.div``;
-
 export const UserSection = styled.div`
   display: flex;
   align-items: center;

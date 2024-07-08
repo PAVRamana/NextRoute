@@ -3,8 +3,10 @@
 import * as React from 'react';
 import * as Styled from './workItems.styles';
 import { useSession } from 'next-auth/react';
-import formIcon from '../../../assets/form-icon.png';
+import formIcon from '../../assets/form-icon.png';
 import Image from 'next/image';
+import { Typography } from '@mui/material';
+import RenderTypography from '../common/components/typography';
 
 type WorkItemsPageTypes = {
   onClickWorkItem: (step: number) => void;
@@ -31,20 +33,22 @@ export default function WorkItemsPage({
 
   return (
     <Styled.Container>
-      <Styled.WelcomeBackTitle>
+      <Typography variant='h5' gutterBottom>
         Welcome back, {session?.user?.firstname}
-      </Styled.WelcomeBackTitle>
+      </Typography>
       <Styled.Line />
-      <Styled.WorkItemsTitle>Work items</Styled.WorkItemsTitle>
+      <Typography variant='button' display='block' gutterBottom>
+        Work items
+      </Typography>
       <Styled.WorkItemsContainer $isEmptyWorkItems={showEmptyWorkItems}>
-        <Styled.WorkItemsSubTitle>
+        <Typography variant='body2' gutterBottom>
           {showEmptyWorkItems
             ? 'There are currently no work items.'
             : 'Below are a list of access requests that need attention.'}
-        </Styled.WorkItemsSubTitle>
-        <Styled.WorkItemsCount>
+        </Typography>
+        <Typography variant='body2' gutterBottom>
           {showEmptyWorkItems ? 0 : 2} Work Items
-        </Styled.WorkItemsCount>
+        </Typography>
       </Styled.WorkItemsContainer>
 
       {!showEmptyWorkItems && (
@@ -54,7 +58,9 @@ export default function WorkItemsPage({
               <Styled.FormTitle>
                 <Styled.FormImageContainer>
                   <Image src={formIcon} alt='' width={15} height={15} />
-                  Form
+                  <Typography variant='h6' gutterBottom>
+                    Form
+                  </Typography>
                 </Styled.FormImageContainer>
               </Styled.FormTitle>
               <Styled.FormRootContainer>
@@ -66,9 +72,13 @@ export default function WorkItemsPage({
                       Level 1 Approval: Account Change for Dave Matheson
                     </Styled.Title>
                     <Styled.ValueSection>
-                      <Styled.Value>06/12/24</Styled.Value>
+                      <Typography variant='body2' gutterBottom>
+                        06/12/24
+                      </Typography>
                       <Styled.VerticalLine />
-                      <Styled.Value>3712932</Styled.Value>
+                      <Typography variant='body2' gutterBottom>
+                        1235256
+                      </Typography>
                     </Styled.ValueSection>
                   </Styled.FormApprovalSectionWrapper>
                 </Styled.FormApprovalSection>
@@ -77,8 +87,10 @@ export default function WorkItemsPage({
                   {helDeskDetails?.map((item, index: number) => {
                     return (
                       <Styled.SectionInfo key={index}>
-                        <Styled.Title>{item?.title}</Styled.Title>
-                        <Styled.Value>{item?.value}</Styled.Value>
+                        <RenderTypography title={item?.title} />
+                        <Typography variant='body2' gutterBottom>
+                          {item?.value}
+                        </Typography>
                       </Styled.SectionInfo>
                     );
                   })}
@@ -86,12 +98,15 @@ export default function WorkItemsPage({
               </Styled.FormRootContainer>
             </Styled.FormDetailsContainer>
           </Styled.FormContainer>
+
           <Styled.FormContainer onClick={() => onClickWorkItem(2)}>
             <Styled.FormDetailsContainer>
               <Styled.FormTitle>
                 <Styled.FormImageContainer>
                   <Image src={formIcon} alt='' width={15} height={15} />
-                  Approval
+                  <Typography variant='h6' gutterBottom>
+                    Approval
+                  </Typography>
                 </Styled.FormImageContainer>
               </Styled.FormTitle>
               <Styled.FormRootContainer>
@@ -103,9 +118,13 @@ export default function WorkItemsPage({
                       Level 2 Approval: Account Change for Reena Prakish
                     </Styled.Title>
                     <Styled.ValueSection>
-                      <Styled.Value>06/12/24</Styled.Value>
+                      <Typography variant='body2' gutterBottom>
+                        06/12/24
+                      </Typography>
                       <Styled.VerticalLine />
-                      <Styled.Value>3712932</Styled.Value>
+                      <Typography variant='body2' gutterBottom>
+                        1235256
+                      </Typography>
                     </Styled.ValueSection>
                   </Styled.FormApprovalSectionWrapper>
                 </Styled.FormApprovalSection>
@@ -114,8 +133,10 @@ export default function WorkItemsPage({
                   {approvalDetails?.map((item, index: number) => {
                     return (
                       <Styled.SectionInfo key={index}>
-                        <Styled.Title>{item?.title}</Styled.Title>
-                        <Styled.Value>{item?.value}</Styled.Value>
+                        <RenderTypography title={item?.title} />
+                        <Typography variant='body2' gutterBottom>
+                          {item?.value}
+                        </Typography>
                       </Styled.SectionInfo>
                     );
                   })}

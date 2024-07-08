@@ -29,30 +29,15 @@ export const SectionInfo = styled.div`
 
 export const UserInfoSection = styled.div`
   padding: 30px;
-  background: #e2e2e2;
+  background: #f9fbfc;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dddddd;
 `;
 
 export const UserInfoTitleSection = styled.div`
   display: grid;
-  gap: 10px;
-`;
-
-export const UserInfoTitle = styled.div`
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 22px;
-  text-align: left;
-  color: #3e3d3d;
-`;
-
-export const UserInfoDesignation = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 22px;
-  text-align: left;
-  color: #3e3d3d;
 `;
 
 export const PersonalInfoSection = styled.div`
@@ -70,27 +55,6 @@ export const Line = styled.hr`
   padding: 0;
 `;
 
-export const SectionTitle = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 22px;
-  text-align: left;
-  color: #3e3d3d;
-  margin-bottom: 10px;
-`;
-
-export const Title = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 32px;
-  text-align: left;
-  color: #246099;
-`;
-
-export const Value = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 22px;
-  text-align: left;
-  color: #3e3d3d;
+export const EmptyWrapper = styled.div`
+  margin-bottom: 30px;
 `;

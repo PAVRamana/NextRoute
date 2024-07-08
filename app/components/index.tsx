@@ -2,14 +2,16 @@
 
 import * as React from 'react';
 import AccessModalUserSection from './help-desk/access-modal-user';
-import FooterToolbar from './common/footer-toolbar';
+import HelpDeskFooterToolbar from './help-desk/footer-toolbar';
 import Header from './common/header';
 import NewHireSection from './help-desk/new-hire-section';
 import * as Styled from './landingPage.styles';
-import WorkItemsPage from './common/work-items';
+import WorkItemsPage from './work-items';
+import ManagerApproval from './manager-approval';
 
 export default function LandingPage() {
   const [activeStep, setActiveStep] = React.useState(-1);
+  const noWorkItems = false;
 
   const queryParams = new URLSearchParams(location.search);
   const formType = queryParams.get('formType');
@@ -30,10 +32,10 @@ export default function LandingPage() {
         <Header />
       </Styled.HeaderContainer>
       {activeStep === 0 && (
-        <Styled.WorkItemContainer $isEmptyWorkItems={false}>
+        <Styled.WorkItemContainer $isEmptyWorkItems={noWorkItems}>
           <WorkItemsPage
             onClickWorkItem={(step: number) => setActiveStep(step)}
-            showEmptyWorkItems={false}
+            showEmptyWorkItems={noWorkItems}
           />
         </Styled.WorkItemContainer>
       )}
@@ -41,16 +43,12 @@ export default function LandingPage() {
         <Styled.BodyContainer>
           <NewHireSection />
           <AccessModalUserSection />
-          <FooterToolbar onClickDashboard={() => setActiveStep(0)} />
+          <HelpDeskFooterToolbar onClickDashboard={() => setActiveStep(0)} />
         </Styled.BodyContainer>
       )}
       {activeStep === 2 && (
         <Styled.BodyContainer>
-          <div>TODO Approval Form </div>
-          <FooterToolbar
-            onClickDashboard={() => setActiveStep(0)}
-            isApprovalForm={true}
-          />
+          <ManagerApproval onClickDashboard={() => setActiveStep(0)} />
         </Styled.BodyContainer>
       )}
     </>

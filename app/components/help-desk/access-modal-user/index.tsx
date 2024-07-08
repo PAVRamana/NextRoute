@@ -1,9 +1,10 @@
 'use client';
 
 import CircularProgress from '@mui/material/CircularProgress';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, TextField, Typography } from '@mui/material';
 import * as React from 'react';
 import * as Styled from './accessModalUserSection.styles';
+import RenderTypography from '../../common/components/typography';
 
 interface ManagerType {
   title: string;
@@ -55,10 +56,12 @@ export default function AccessModalUserSection() {
 
   return (
     <Styled.Container>
-      <Styled.Title>SELECT ACCESS MODEL USER</Styled.Title>
+      <Typography variant='h6' gutterBottom>
+        SELECT ACCESS MODEL USER
+      </Typography>
       <Styled.AccessModalUserSection>
         <Styled.FieldContainer>
-          <Styled.FieldTitle>Manager Approval</Styled.FieldTitle>
+          <RenderTypography title={'Manager Approval'} />
           <TextField
             label=''
             style={{ width: '300px' }}
@@ -72,7 +75,7 @@ export default function AccessModalUserSection() {
           />
         </Styled.FieldContainer>
         <Styled.FieldContainer>
-          <Styled.FieldTitle>Overring Manager Approval</Styled.FieldTitle>
+          <RenderTypography title={'Overring Manager Approval'} />
           <Autocomplete
             open={open}
             onOpen={() => {
@@ -113,7 +116,7 @@ export default function AccessModalUserSection() {
         </Styled.FieldContainer>
       </Styled.AccessModalUserSection>
       <Styled.FieldContainer>
-        <Styled.FieldTitle>Additional Comment</Styled.FieldTitle>
+        <RenderTypography title={'Additional Comment'} />
         <TextField
           label=''
           InputLabelProps={{

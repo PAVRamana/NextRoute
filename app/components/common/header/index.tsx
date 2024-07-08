@@ -10,12 +10,13 @@ import logo from '../../../assets/point72-logo.png';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import * as Styled from './header.styles';
+import { Typography } from '@mui/material';
 
 type HeaderTypes = {
-  isPage?: boolean;
+  isLoadingPage?: boolean;
 };
 
-export default function Header({ isPage }: HeaderTypes) {
+export default function Header({ isLoadingPage }: HeaderTypes) {
   const { data: session } = useSession();
 
   const getUserName = () => {
@@ -38,7 +39,7 @@ export default function Header({ isPage }: HeaderTypes) {
         <AppBar position='static'>
           <Toolbar>
             <Image src={logo} alt='' width={100} height={40} />
-            {!isPage && (
+            {!isLoadingPage && (
               <Styled.HomeContainer>
                 <Styled.Home
                   onClick={() => {
@@ -48,28 +49,26 @@ export default function Header({ isPage }: HeaderTypes) {
                     );
                   }}
                 >
-                  Home
+                  <Typography variant='body1'>Home</Typography>
                 </Styled.Home>
                 <Styled.UserSection>
-                  <Styled.DisplayName>
+                  <Typography variant='body1'>
                     {session?.user?.displayName}
-                  </Styled.DisplayName>
+                  </Typography>
                   <Styled.UserName>
                     {getUserName()?.toUpperCase()}
                   </Styled.UserName>
-                  <Styled.Logout>
-                    <Button
-                      size='small'
-                      color='success'
-                      style={{ color: 'red', borderColor: 'red' }}
-                      onClick={() => {
-                        signOut();
-                      }}
-                      endIcon={<LogoutIcon />}
-                    >
-                      Logout
-                    </Button>
-                  </Styled.Logout>
+                  <Button
+                    size='small'
+                    color='success'
+                    style={{ color: 'red', borderColor: 'red' }}
+                    onClick={() => {
+                      signOut();
+                    }}
+                    endIcon={<LogoutIcon />}
+                  >
+                    Logout
+                  </Button>
                 </Styled.UserSection>
               </Styled.HomeContainer>
             )}

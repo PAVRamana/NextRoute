@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const BodyContainer = styled.div`
   padding: 30px;
-  border: 1px solid #e2e2e2;
   background: #f2f5f7;
 `;
 
