@@ -3,6 +3,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Popover from '@mui/material/Popover';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -18,6 +19,21 @@ type HeaderTypes = {
 
 export default function Header({ isLoadingPage }: HeaderTypes) {
   const { data: session } = useSession();
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'user-details-popover' : undefined;
 
   const getUserName = () => {
     const user = session?.user;
@@ -55,20 +71,33 @@ export default function Header({ isLoadingPage }: HeaderTypes) {
                   <Typography variant='body1'>
                     {session?.user?.displayName}
                   </Typography>
-                  <Styled.UserName>
+                  <Styled.UserName onClick={handleClick}>
                     {getUserName()?.toUpperCase()}
                   </Styled.UserName>
-                  <Button
-                    size='small'
-                    color='success'
-                    style={{ color: 'red', borderColor: 'red' }}
-                    onClick={() => {
-                      signOut();
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
-                    endIcon={<LogoutIcon />}
                   >
-                    Logout
-                  </Button>
+                    <Typography sx={{ p: 2 }}>
+                      <Button
+                        size='small'
+                        color='success'
+                        style={{ color: 'red', borderColor: 'red' }}
+                        onClick={() => {
+                          signOut();
+                        }}
+                        endIcon={<LogoutIcon />}
+                      >
+                        Logout
+                      </Button>
+                    </Typography>
+                  </Popover>
                 </Styled.UserSection>
               </Styled.HomeContainer>
             )}

@@ -51,4 +51,5 @@ export const UserSection = styled.div`
   text-align: center;
   justify-content: center;
   gap: 15px;
+  margin-right: 20px;
 `;

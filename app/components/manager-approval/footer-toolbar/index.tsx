@@ -33,7 +33,7 @@ function ManagerFooterToolbar({
   ];
 
   const { approvalsData } = useAppSelectorHook();
-  const { step2Info, step3Info, step4Info, step1Info } = approvalsData;
+  const { step2Info, step3Info, step4Info } = approvalsData;
 
   const isDisabled = (index: number): boolean => {
     if (index === 0) {
@@ -46,9 +46,9 @@ function ManagerFooterToolbar({
     } else if (index === 2) {
       return step3Info?.selectedEntitilementData?.rows?.length === 0;
     } else if (index === 3) {
-      return true;
+      return step4Info?.selectedElevatedEntitilementData?.rows?.length === 0;
     } else if (index === 4) {
-      return true;
+      return false;
     }
     return false;
   };

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-top: 5px;
+  .MuiCheckbox-root {
+    background: #fff;
+  }
   table {
     border-spacing: 0;
     border: 1px solid #d6d6d6;

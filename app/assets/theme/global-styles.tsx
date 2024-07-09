@@ -24,4 +24,8 @@ export const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
   }
+  
+  #user-details-popover{
+    z-index: 999999;
+  }
 `;

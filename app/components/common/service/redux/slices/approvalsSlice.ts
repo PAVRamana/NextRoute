@@ -20,13 +20,18 @@ const initialState: ApprovalsInitialStateType = {
     step2Info: {
       selectedModalData: {},
       selectedManagerInfo: {},
+      futureNotifications: {},
     },
     step3Info: {
       selectedEntitilementData: {
         rows: [],
       },
     },
-    step4Info: {},
+    step4Info: {
+      selectedElevatedEntitilementData: {
+        rows: [],
+      },
+    },
     step5Info: {},
   },
 };

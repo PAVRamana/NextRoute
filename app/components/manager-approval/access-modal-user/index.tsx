@@ -47,7 +47,8 @@ export default function AccessModalUserSection() {
   const dispatch = useAppDispatch();
   const { approvalsData } = useAppSelectorHook();
   const { step2Info } = approvalsData;
-  const { selectedModalData, selectedManagerInfo } = step2Info;
+  const { selectedModalData, selectedManagerInfo, futureNotifications } =
+    step2Info;
 
   React.useEffect(() => {
     let active = true;
@@ -86,7 +87,8 @@ export default function AccessModalUserSection() {
           <DropDown
             data={[
               'Copy Access from Model Users',
-              'Revoke Access from Model Users',
+              'Add Access',
+              'Remove Access',
             ]}
             value={selectedModalData.modelUser ?? ''}
             width={300}
@@ -181,7 +183,22 @@ export default function AccessModalUserSection() {
           like to get further notifications for this request, opt in below.
         </Typography>
         <FormControlLabel
-          control={<Checkbox />}
+          control={
+            <Checkbox
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                dispatch(
+                  setStep2Info({
+                    data: {
+                      ...step2Info,
+                      futureNotifications: { enabled: e?.target?.checked },
+                    },
+                  })
+                );
+              }}
+              checked={futureNotifications?.enabled}
+              size='small'
+            />
+          }
           label={
             <Typography variant='caption'>
               INCLUDE ME IN FUTURE NOTIFICATIONS

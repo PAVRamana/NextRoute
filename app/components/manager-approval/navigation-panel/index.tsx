@@ -42,14 +42,14 @@ export default function NavigationPanel({
         Object.keys(step2Info?.selectedManagerInfo)?.length === 0
       );
     } else if (index === 3) {
-      return true;
+      return step3Info?.selectedEntitilementData?.rows?.length === 0;
     } else if (index === 4) {
-      return true;
+      return step4Info?.selectedElevatedEntitilementData?.rows?.length === 0;
     }
     return false;
   };
 
-  const BpIcon = styled('span')(({ theme }) => ({
+  const DisabledIcon = styled('span')(({ theme }) => ({
     borderRadius: '50%',
     width: 16,
     height: 16,
@@ -78,7 +78,7 @@ export default function NavigationPanel({
     },
   }));
 
-  const BpCheckedIcon = styled(BpIcon)({
+  const DisabledCheckedIcon = styled(DisabledIcon)({
     backgroundColor: '#137cbd',
     backgroundImage:
       'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
@@ -94,13 +94,13 @@ export default function NavigationPanel({
     },
   });
 
-  function BpRadio(props: RadioProps) {
+  function DisabledRadio(props: RadioProps) {
     return (
       <Radio
         disableRipple
         color='default'
-        checkedIcon={<BpCheckedIcon />}
-        icon={<BpIcon />}
+        checkedIcon={<DisabledCheckedIcon />}
+        icon={<DisabledIcon />}
         {...props}
       />
     );
@@ -123,7 +123,7 @@ export default function NavigationPanel({
                   <FormControlLabel
                     value='disabled'
                     disabled
-                    control={<BpRadio />}
+                    control={<DisabledRadio />}
                     label=''
                   />
                 ) : (

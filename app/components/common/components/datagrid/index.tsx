@@ -10,6 +10,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { useEffect, useMemo, useState } from 'react';
 import * as Styled from './dataGrid.styles';
@@ -60,6 +61,7 @@ type DataGridTypes = {
   tableData?: any;
   applyFilterOnTable?: boolean;
   resetExecuteFilterFlag?: () => void;
+  isTableCellRequired?: boolean;
 };
 
 export default function DataGrid({
@@ -75,6 +77,7 @@ export default function DataGrid({
   tableData,
   applyFilterOnTable,
   resetExecuteFilterFlag,
+  isTableCellRequired,
 }: DataGridTypes) {
   const [rowSelection, setRowSelection] = useState<RowSelections>({});
   const [pagination, setPagination] =
@@ -205,11 +208,40 @@ export default function DataGrid({
     if (gridDataHeaders) {
       const columnsArray: any[] = [];
 
+      columnsArray.push(
+        ...dataQuery.data?.headers?.map((item: any) => {
+          return {
+            accessorKey: item.accessor,
+            id: item.accessor,
+            header: () => <div>{item.Header}</div>,
+          };
+        })
+      );
+
+      if (isTableCellRequired) {
+        columnsArray.push({
+          id: 'comment',
+          accessorKey: 'Comment',
+          header: () => <Styled.Action>{'Comment'}</Styled.Action>,
+          size: 10,
+          cell: ({ row }: any) => (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <EditIcon style={{ color: '#3A765A' }} width={17} height={17} />
+            </div>
+          ),
+        });
+      }
+
       if (isRowSelectionRequired) {
         columnsArray.push({
           id: 'select-checkbox',
           accessorKey: 'Action',
-          header: () => <Styled.Action>{'Action'}</Styled.Action>,
+          header: () => <Styled.Action>{'Approval Decision'}</Styled.Action>,
           size: 10,
           cell: ({ row }: any) => (
             <Styled.CheckBox>
@@ -223,16 +255,6 @@ export default function DataGrid({
           ),
         });
       }
-
-      columnsArray.push(
-        ...dataQuery.data?.headers?.map((item: any) => {
-          return {
-            accessorKey: item.accessor,
-            id: item.accessor,
-            header: () => <div>{item.Header}</div>,
-          };
-        })
-      );
 
       return columnsArray;
     }
