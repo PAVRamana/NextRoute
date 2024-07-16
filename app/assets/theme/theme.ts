@@ -33,6 +33,28 @@ export const getMuiTheme = () => {
           },
         },
       },
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: '#fff',
+            color: '#000',
+            border: '1px solid #dddddd',
+            fontFamily:
+              "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+          },
+        },
+      },
+      MuiMenu: {
+        styleOverrides: {
+          list: {
+            '&[role="menu"]': {
+              backgroundColor: '#f9fbfc',
+              fontFamily:
+                "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+            },
+          },
+        },
+      },
     },
   });
 };

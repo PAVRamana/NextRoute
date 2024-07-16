@@ -75,7 +75,7 @@ export default function AccessModalUserSection() {
   return (
     <Styled.Container>
       <InstructionsNote
-        title='SELECT MODEL USER'
+        title='SELECT ACCESS MODEL USER'
         notes={[
           'To get started, fill out the 2 fields below.',
           'When done, select the green button at the bottom.',
@@ -83,7 +83,9 @@ export default function AccessModalUserSection() {
       />
       <Styled.AccessModalUserSection>
         <Styled.FieldContainer>
-          <RenderTypography title={'Select Access Model User/Access Options'} />
+          <RenderTypography
+            title={'Select Access Model User/Default Access Options'}
+          />
           <DropDown
             data={[
               'Copy Access from Model Users',
@@ -91,7 +93,7 @@ export default function AccessModalUserSection() {
               'Remove Access',
             ]}
             value={selectedModalData.modelUser ?? ''}
-            width={300}
+            width={350}
             size='small'
             onChange={(value: string) => {
               dispatch(
@@ -106,7 +108,7 @@ export default function AccessModalUserSection() {
           />
         </Styled.FieldContainer>
         <Styled.FieldContainer>
-          <RenderTypography title={'Enter Access Model User'} />
+          <RenderTypography title={'Enter/Change Access Model User'} />
           <Autocomplete
             open={open}
             onOpen={() => {
@@ -138,7 +140,7 @@ export default function AccessModalUserSection() {
             }}
             options={options}
             loading={loading}
-            sx={{ width: 300 }}
+            sx={{ width: 350 }}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -175,7 +177,6 @@ export default function AccessModalUserSection() {
           </Styled.SelectedModal>
         )}
       <Styled.Line />
-
       <Styled.FieldContainer>
         <RenderTypography title={'Note:'} />
         <Typography variant='body2' gutterBottom>

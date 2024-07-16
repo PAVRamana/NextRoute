@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as Styled from './footerToolbar.styles';
 import { Button } from '@mui/material';
-import NavigationPanel from '../navigation-panel';
+import NavigationPanel from './navigation-panel';
 import { useAppSelectorHook } from '../../common/service/hook/useAppSelectorHook';
 
 type FooterToolbarTypes = {

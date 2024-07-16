@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const FooterToolbarSectionContainer = styled.div`
-  padding: 15px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   background-color: #f6f9fb;

@@ -1,7 +1,21 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 30px;
+  padding: 1px;
+  .MuiDataGrid-cell {
+    background: #fff;
+  }
+  .MuiDataGrid-columnHeaders {
+    div:first-child {
+      background: #f9fbfc;
+    }
+  }
+  .MuiDataGrid-columnHeader {
+    outline: none !important;
+  }
+  .MuiDataGrid-cell {
+    outline: none !important;
+  }
 `;
 
 export const GeneralAccessContainer = styled.div`
@@ -11,13 +25,4 @@ export const GeneralAccessContainer = styled.div`
 
 export const EmptyWrapper = styled.div`
   margin-bottom: 30px;
-`;
-
-export const Line = styled.hr`
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #dddddd;
-  margin: 1em 0;
-  padding: 0;
 `;

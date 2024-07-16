@@ -3,7 +3,7 @@ import Radio, { RadioProps } from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import { useAppSelectorHook } from '../../common/service/hook/useAppSelectorHook';
+import { useAppSelectorHook } from '../../../common/service/hook/useAppSelectorHook';
 import { styled } from '@mui/material/styles';
 import * as Styled from './navigationPanel.styles';
 
@@ -19,7 +19,8 @@ export default function NavigationPanel({
   const [currentStepValue, setCurrentStepValue] = React.useState<string>('0');
 
   const { approvalsData } = useAppSelectorHook();
-  const { step1Info, step2Info, step3Info, step4Info } = approvalsData;
+  const { step1Info, step2Info, step3Info, step4Info, step5Info } =
+    approvalsData;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const stepValue = (event.target as HTMLInputElement).value;
@@ -49,46 +50,35 @@ export default function NavigationPanel({
     return false;
   };
 
+  const isDataAvaialble = (index: number): boolean => {
+    if (index === 1) {
+      return (
+        Object.keys(step2Info?.selectedModalData)?.length === 0 ||
+        Object.keys(step2Info?.selectedManagerInfo)?.length === 0
+      );
+    } else if (index === 2) {
+      return step3Info?.selectedEntitilementData?.rows?.length === 0;
+    } else if (index === 3) {
+      return step4Info?.selectedElevatedEntitilementData?.rows?.length === 0;
+    } else if (index === 4) {
+      return Object.keys(step5Info?.comfirmationDetails)?.length === 0;
+    }
+    return false;
+  };
+
   const DisabledIcon = styled('span')(({ theme }) => ({
     borderRadius: '50%',
     width: 16,
     height: 16,
-    boxShadow:
-      theme.palette.mode === 'dark'
-        ? '0 0 0 1px rgb(16 22 26 / 40%)'
-        : 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-    backgroundColor: theme.palette.mode === 'dark' ? '#394b59' : '#f5f8fa',
-    backgroundImage:
-      theme.palette.mode === 'dark'
-        ? 'linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0))'
-        : 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
-    '.Mui-focusVisible &': {
-      outline: '2px auto rgba(19,124,189,.6)',
-      outlineOffset: 2,
-    },
-    'input:hover ~ &': {
-      backgroundColor: theme.palette.mode === 'dark' ? '#30404d' : '#ebf1f5',
-    },
+    backgroundColor: '#394b59',
     'input:disabled ~ &': {
       boxShadow: 'none',
-      background:
-        theme.palette.mode === 'dark'
-          ? 'rgba(57,75,89,.5)'
-          : 'rgba(206,217,224,.5)',
+      background: 'rgba(206,217,224,.5)',
     },
   }));
 
   const DisabledCheckedIcon = styled(DisabledIcon)({
     backgroundColor: '#137cbd',
-    backgroundImage:
-      'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
-    '&::before': {
-      display: 'block',
-      width: 16,
-      height: 16,
-      backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
-      content: '""',
-    },
     'input:hover ~ &': {
       backgroundColor: '#106ba3',
     },
@@ -101,6 +91,35 @@ export default function NavigationPanel({
         color='default'
         checkedIcon={<DisabledCheckedIcon />}
         icon={<DisabledIcon />}
+        {...props}
+      />
+    );
+  }
+
+  const SuccessIcon = styled('span')(({ theme }) => ({
+    borderRadius: '50%',
+    width: 16,
+    height: 16,
+    backgroundColor: '#3A765A',
+    'input:hover ~ &': {
+      backgroundColor: '#3A765A',
+    },
+  }));
+
+  const SuccessCheckedIcon = styled(SuccessIcon)({
+    backgroundColor: '#3A765A',
+    'input:hover ~ &': {
+      backgroundColor: '#3A765A',
+    },
+  });
+
+  function SuccessRadio(props: RadioProps) {
+    return (
+      <Radio
+        disableRipple
+        color='default'
+        checkedIcon={<SuccessCheckedIcon />}
+        icon={<SuccessIcon />}
         {...props}
       />
     );
@@ -126,10 +145,31 @@ export default function NavigationPanel({
                     control={<DisabledRadio />}
                     label=''
                   />
+                ) : activeStep === index ? (
+                  <FormControlLabel
+                    value={index}
+                    control={
+                      <Radio
+                        sx={{
+                          color: '#246099',
+                          '&.Mui-checked': {
+                            color: '#246099',
+                          },
+                        }}
+                      />
+                    }
+                    label={''}
+                  />
+                ) : isDataAvaialble(index) ? (
+                  <FormControlLabel
+                    value={index}
+                    control={<Radio />}
+                    label={''}
+                  />
                 ) : (
                   <FormControlLabel
                     value={index}
-                    control={<Radio color='default' />}
+                    control={<SuccessRadio />}
                     label={''}
                   />
                 )}

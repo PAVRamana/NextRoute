@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 30px;
+  padding: 1px;
 `;
 
 export const FieldContainer = styled.div`
@@ -21,6 +21,7 @@ export const AccessModalUserSection = styled.div`
   display: flex;
   gap: 50px;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 export const EmptyWrapper = styled.div`

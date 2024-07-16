@@ -1,24 +1,25 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 30px;
   display: grid;
   text-align: left;
 `;
 
-export const WorkItemsContainer = styled.div<{ $isEmptyWorkItems: boolean }>`
+export const WorkItemsInfo = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  width: ${(p) => (p.$isEmptyWorkItems ? '100vh' : 'auto')};
+`;
+
+export const WorkItemsIconInfo = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 
 export const FormRootContainer = styled.div`
-  display: flex;
+  display: grid;
   background: #fff;
-  gap: 50px;
-  padding: 20px 20px;
+  gap: 10px;
+  padding: 10px 20px;
   border-left: 1px solid #dddddd;
 `;
 
@@ -34,7 +35,6 @@ export const Line = styled.hr`
 export const FormContainer = styled.div`
   border: 1px solid #ececec;
   margin-top: 2px;
-  cursor: pointer;
   display: flex;
   gap: 20px;
 `;
@@ -54,48 +54,9 @@ export const FormImageContainer = styled.div`
 
 export const FormTitle = styled.div`
   text-align: center;
-  width: 125px;
+  width: 145px;
   padding: 15px;
-`;
-
-export const FormApprovalSection = styled.div`
+  justify-content: center;
+  cursor: pointer;
   display: flex;
-  gap: 10px;
-  align-items: center;
-`;
-
-export const FormApprovalSectionWrapper = styled.div`
-  display: grid;
-  gap: 15px;
-  align-items: center;
-`;
-
-export const SectionContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  background: #fff;
-  text-align: center;
-`;
-
-export const SectionInfo = styled.div`
-  display: grid;
-  text-align: left;
-`;
-
-export const ValueSection = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto;
-`;
-
-export const VerticalLine = styled.div`
-  border-left: 1px solid #dddddd;
-`;
-
-export const Title = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 32px;
-  text-wrap: balance;
-  text-align: left;
 `;

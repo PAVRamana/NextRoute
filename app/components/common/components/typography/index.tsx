@@ -28,3 +28,23 @@ export default function RenderTypography({
     </>
   );
 }
+
+type Body1TypographyTypes = {
+  title: string;
+};
+
+export function Body1Typography({ title }: Body1TypographyTypes) {
+  return (
+    <>
+      <Typography
+        variant={'body1'}
+        gutterBottom
+        style={{
+          fontWeight: '500',
+        }}
+      >
+        {title}
+      </Typography>
+    </>
+  );
+}

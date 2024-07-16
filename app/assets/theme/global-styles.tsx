@@ -8,8 +8,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 5px;
   }
   
   *::-webkit-scrollbar-track {
@@ -27,5 +27,13 @@ export const GlobalStyles = createGlobalStyle`
   
   #user-details-popover{
     z-index: 999999;
+  }
+  
+  #header-popup-menu{
+    z-index: 999999;
+    .MuiMenu-list {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
   }
 `;

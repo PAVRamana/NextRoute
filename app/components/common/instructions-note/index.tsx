@@ -1,8 +1,10 @@
 'use client';
 
-import { Typography } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 import * as React from 'react';
 import * as Styled from './InstructionsNote.styles';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Body1Typography } from '../components/typography';
 
 type InstructionsNoteTypes = {
   title: string;
@@ -15,25 +17,34 @@ export default function InstructionsNote({
 }: InstructionsNoteTypes) {
   return (
     <>
-      <Typography variant='h5' gutterBottom>
-        {title}
-      </Typography>
+      <Body1Typography title={title} />
       <Styled.Line />
       <Styled.InstructionSelction>
         <Typography variant='button' display='block' gutterBottom>
           INSTRUCTIONS
         </Typography>
-        <Styled.InstructionContentConatiner>
-          {notes?.map((note: string, index: number) => {
-            return (
-              <div key={index}>
-                <Typography variant='body2' gutterBottom>
-                  {`${index + 1}. ${note}`}
-                </Typography>
-              </div>
-            );
-          })}
-        </Styled.InstructionContentConatiner>
+        <Tooltip
+          placement='bottom-end'
+          title={
+            <>
+              <Styled.InstructionContentConatiner>
+                {notes?.map((note: string, index: number) => {
+                  return (
+                    <div key={index}>
+                      <Typography variant='body2' gutterBottom>
+                        {`${index + 1}. ${note}`}
+                      </Typography>
+                    </div>
+                  );
+                })}
+              </Styled.InstructionContentConatiner>
+            </>
+          }
+        >
+          <InfoOutlinedIcon
+            style={{ width: '20px', height: '17px', margin: '2px 0px' }}
+          />
+        </Tooltip>
       </Styled.InstructionSelction>
     </>
   );

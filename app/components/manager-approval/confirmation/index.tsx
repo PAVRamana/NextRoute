@@ -7,21 +7,44 @@ import { useAppSelectorHook } from '../../common/service/hook/useAppSelectorHook
 import { Typography } from '@mui/material';
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
 import { BarChart } from '@mui/x-charts/BarChart';
-import RenderTypography from '../../common/components/typography';
+import { useAppDispatch } from '../../common/service/redux/store';
+import { setStep5Info } from '../../common/service/redux/slices/approvalsSlice';
+import DataTable from '../../common/components/datatable';
 
 export default function ConfirmationPage() {
   const { approvalsData } = useAppSelectorHook();
-  const { step4Info } = approvalsData;
+  const dispatch = useAppDispatch();
+  const { step5Info } = approvalsData;
 
-  const copyAccessData = [
-    { title: 'Copy Access Model User', value: 'Myself' },
-    { title: 'Receive Notifications', value: 'Yes' },
-  ];
+  React.useEffect(() => {
+    dispatch(
+      setStep5Info({
+        data: {
+          ...step5Info,
+          comfirmationDetails: {
+            enbaled: true,
+          },
+        },
+      })
+    );
+  }, []);
 
-  const companyData = [
-    { title: 'Company Name', value: 'Point72' },
-    { title: 'Department Desc.', value: 'Information Technology' },
-  ];
+  const tableData = {
+    headers: [
+      'Name',
+      'Job Title',
+      'Copy Access Model User',
+      'Receive Notifications',
+    ],
+    objects: [
+      {
+        Name: 'Dave Matheson (8403)',
+        'Job Title': 'Consultant',
+        'Copy Access Model User': 'Myself',
+        'Receive Notifications': 'Yes',
+      },
+    ],
+  };
 
   return (
     <Styled.Container>
@@ -33,59 +56,9 @@ export default function ConfirmationPage() {
         ]}
       />
       <Styled.ConfirmationContainer>
-        <Styled.MainRoot>
-          <Styled.UserInfoSection>
-            <Styled.UserInfoTitleSection>
-              <Typography
-                variant='h5'
-                gutterBottom
-                style={{ fontWeight: '700' }}
-              >
-                Dave Matheson
-              </Typography>
-              <Typography variant='h6' gutterBottom>
-                System Administrator
-              </Typography>
-            </Styled.UserInfoTitleSection>
-          </Styled.UserInfoSection>
-          <Styled.RootContainer>
-            <Styled.PersonalInfoSection>
-              <Typography variant='h6' gutterBottom>
-                Copy Access Info
-              </Typography>
-              <Styled.SectionContainer>
-                {copyAccessData?.map((item, index: number) => {
-                  return (
-                    <Styled.SectionInfo key={index}>
-                      <RenderTypography title={item?.title} />
-                      <Typography variant='body2' gutterBottom>
-                        {item?.value}
-                      </Typography>
-                    </Styled.SectionInfo>
-                  );
-                })}
-              </Styled.SectionContainer>
-            </Styled.PersonalInfoSection>
-            <Styled.Line />
-            <Styled.CompanyInfoSection>
-              <Typography variant='h6' gutterBottom>
-                Company Info
-              </Typography>
-              <Styled.SectionContainer>
-                {companyData?.map((item, index: number) => {
-                  return (
-                    <Styled.SectionInfo key={index}>
-                      <RenderTypography title={item?.title} />
-                      <Typography variant='body2' gutterBottom>
-                        {item?.value}
-                      </Typography>
-                    </Styled.SectionInfo>
-                  );
-                })}
-              </Styled.SectionContainer>
-            </Styled.CompanyInfoSection>
-          </Styled.RootContainer>
-        </Styled.MainRoot>
+        <div style={{ width: '62%' }}>
+          <DataTable data={tableData} border={true} />
+        </div>
         <Styled.ConfirmationSectionContainer>
           <Styled.ConfirmationSection>
             <Styled.ApprovalRate>
@@ -132,88 +105,86 @@ export default function ConfirmationPage() {
               </Styled.TotalDetails>
             </Styled.Gauge>
           </Styled.ConfirmationSection>
-          <Styled.ConfirmationAccessDetailsSection>
-            <Styled.AccessDetails>
-              <Styled.ChartSection>
-                <Typography
-                  variant='h6'
-                  style={{
-                    paddingTop: '15px',
-                    textAlign: 'center',
-                    marginBottom: '15px',
-                  }}
-                >
-                  General Access
-                </Typography>
-                <BarChart
-                  width={200}
-                  tooltip={{
-                    trigger: 'item',
-                    itemContent: () => {
-                      return null;
+          <Styled.AccessDetails>
+            <Styled.ChartSection>
+              <Typography
+                variant='h6'
+                style={{
+                  paddingTop: '15px',
+                  textAlign: 'center',
+                  marginBottom: '15px',
+                }}
+              >
+                General Access
+              </Typography>
+              <BarChart
+                width={220}
+                tooltip={{
+                  trigger: 'item',
+                  itemContent: () => {
+                    return null;
+                  },
+                }}
+                height={180}
+                series={[{ data: [15, 10], id: 'uvId' }]}
+                barLabel={(item) => {
+                  return item?.value?.toString();
+                }}
+                leftAxis={null}
+                xAxis={[
+                  {
+                    data: ['Approved', 'Rejected'],
+                    scaleType: 'band',
+                    colorMap: {
+                      type: 'ordinal',
+                      values: ['Approved', 'Rejected'],
+                      colors: ['#3A765A', '#C8352C'],
                     },
-                  }}
-                  height={180}
-                  series={[{ data: [15, 10], id: 'uvId' }]}
-                  barLabel={(item) => {
-                    return item?.value?.toString();
-                  }}
-                  leftAxis={null}
-                  xAxis={[
-                    {
-                      data: ['Approved', 'Rejected'],
-                      scaleType: 'band',
-                      colorMap: {
-                        type: 'ordinal',
-                        values: ['Approved', 'Rejected'],
-                        colors: ['#3A765A', '#C8352C'],
-                      },
+                  },
+                ]}
+                margin={{ right: 30, top: 0 }}
+              />
+            </Styled.ChartSection>
+            <Styled.ChartSection>
+              <Typography
+                variant='h6'
+                style={{
+                  paddingTop: '15px',
+                  textAlign: 'center',
+                  marginBottom: '15px',
+                }}
+              >
+                Elevated Access
+              </Typography>
+              <BarChart
+                width={220}
+                height={180}
+                margin={{ right: 30, top: 0 }}
+                tooltip={{
+                  trigger: 'item',
+                  itemContent: () => {
+                    return null;
+                  },
+                }}
+                series={[{ data: [20, 15], id: 'uvId1' }]}
+                barLabel={(item) => {
+                  return item?.value?.toString();
+                }}
+                leftAxis={null}
+                xAxis={[
+                  {
+                    data: ['Approved', 'Rejected'],
+                    scaleType: 'band',
+                    colorMap: {
+                      type: 'ordinal',
+                      values: ['Approved', 'Rejected'],
+                      colors: ['#3A765A', '#C8352C'],
                     },
-                  ]}
-                  margin={{ right: 0, top: 0 }}
-                />
-              </Styled.ChartSection>
-              <Styled.ChartSection>
-                <Typography
-                  variant='h6'
-                  style={{
-                    paddingTop: '15px',
-                    textAlign: 'center',
-                    marginBottom: '15px',
-                  }}
-                >
-                  Elevated Access
-                </Typography>
-                <BarChart
-                  width={200}
-                  height={180}
-                  margin={{ right: 0, top: 0 }}
-                  tooltip={{
-                    trigger: 'item',
-                    itemContent: () => {
-                      return null;
-                    },
-                  }}
-                  series={[{ data: [20, 15], id: 'uvId1' }]}
-                  barLabel={(item) => {
-                    return item?.value?.toString();
-                  }}
-                  leftAxis={null}
-                  xAxis={[
-                    {
-                      data: ['Approved', 'Rejected'],
-                      scaleType: 'band',
-                      colorMap: {
-                        type: 'ordinal',
-                        values: ['Approved', 'Rejected'],
-                        colors: ['#3A765A', '#C8352C'],
-                      },
-                    },
-                  ]}
-                />
-              </Styled.ChartSection>
-            </Styled.AccessDetails>
-          </Styled.ConfirmationAccessDetailsSection>
+                  },
+                ]}
+              />
+            </Styled.ChartSection>
+          </Styled.AccessDetails>
         </Styled.ConfirmationSectionContainer>
       </Styled.ConfirmationContainer>
       <Styled.EmptyWrapper />

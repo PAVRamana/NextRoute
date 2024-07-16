@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const InstructionSelction = styled.div`
-  display: grid;
+  display: flex;
   gap: 5px;
-  margin-top: 15px;
+  margin-bottom: 5px;
 `;
 
 export const InstructionContentConatiner = styled.div`
-  margin-bottom: 20px;
+  padding: 10px;
+  display: grid;
+  gap: 5px;
 `;
 
 export const Line = styled.hr`

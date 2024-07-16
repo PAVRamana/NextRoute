@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Popover from '@mui/material/Popover';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -11,7 +11,10 @@ import logo from '../../../assets/point72-logo.png';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import * as Styled from './header.styles';
-import { Typography } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { Divider } from '@mui/material';
 
 type HeaderTypes = {
   isLoadingPage?: boolean;
@@ -20,35 +23,6 @@ type HeaderTypes = {
 export default function Header({ isLoadingPage }: HeaderTypes) {
   const { data: session } = useSession();
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-
-  const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'user-details-popover' : undefined;
-
-  const getUserName = () => {
-    const user = session?.user;
-    const fistName = user?.firstname && user?.firstname?.substring(0, 1);
-    const lastname = user?.lastname && user?.lastname?.substring(0, 1);
-
-    if (fistName && lastname) {
-      return `${fistName}${lastname}`;
-    } else if (user?.displayName) {
-      return user?.displayName?.substring(0, 2)?.toUpperCase();
-    } else {
-      return '';
-    }
-  };
-
   return (
     <Styled.Container>
       <Box sx={{ flexGrow: 1 }}>
@@ -56,50 +30,49 @@ export default function Header({ isLoadingPage }: HeaderTypes) {
           <Toolbar>
             <Image src={logo} alt='' width={100} height={40} />
             {!isLoadingPage && (
-              <Styled.HomeContainer>
-                <Styled.Home
-                  onClick={() => {
-                    window.open(
-                      'https://company9994-poc.identitynow-demo.com/ui/d/mysailpoint',
-                      '_blank' //_self
-                    );
-                  }}
-                >
-                  <Typography variant='body1'>Home</Typography>
-                </Styled.Home>
-                <Styled.UserSection>
-                  <Typography variant='body1'>
-                    {session?.user?.displayName}
-                  </Typography>
-                  <Styled.UserName onClick={handleClick}>
-                    {getUserName()?.toUpperCase()}
-                  </Styled.UserName>
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    }}
-                  >
-                    <Typography sx={{ p: 2 }}>
+              <>
+                <PopupState variant='popover' popupId='header-popup-menu'>
+                  {(popupState) => (
+                    <React.Fragment>
                       <Button
-                        size='small'
-                        color='success'
-                        style={{ color: 'red', borderColor: 'red' }}
-                        onClick={() => {
-                          signOut();
+                        variant='text'
+                        style={{
+                          color: '#fff',
+                          textTransform: 'none',
+                          padding: '0px',
                         }}
-                        endIcon={<LogoutIcon />}
+                        {...bindTrigger(popupState)}
+                        endIcon={
+                          popupState.isOpen ? (
+                            <ExpandLessIcon />
+                          ) : (
+                            <ExpandMoreIcon />
+                          )
+                        }
                       >
-                        Logout
+                        {session?.user?.displayName}
                       </Button>
-                    </Typography>
-                  </Popover>
-                </Styled.UserSection>
-              </Styled.HomeContainer>
+                      <Menu
+                        {...bindMenu(popupState)}
+                        MenuListProps={{
+                          'aria-labelledby': 'basic-button',
+                          sx: {
+                            width:
+                              popupState.anchorEl &&
+                              (popupState.anchorEl as any)?.offsetWidth,
+                          },
+                        }}
+                      >
+                        <MenuItem>About</MenuItem>
+                        <Divider
+                          style={{ marginTop: '2px', marginBottom: '2px' }}
+                        />
+                        <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
+                      </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
+              </>
             )}
           </Toolbar>
         </AppBar>

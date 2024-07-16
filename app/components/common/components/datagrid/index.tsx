@@ -130,7 +130,6 @@ export default function DataGrid({
       rows: tableData.objects,
       headers: tableData.headers,
       rowCount: tableData.count,
-      innerTableHeaders: tableData.innerTableHeaders ?? [],
     };
   };
 
@@ -159,23 +158,27 @@ export default function DataGrid({
 
     const mockdata = {
       headers: [
-        { accessor: 'application', Header: 'Application' },
+        { accessor: 'application', Header: 'Application Name' },
         { accessor: 'entitlement', Header: 'Entitlement' },
+        { accessor: 'description', Header: 'Description' },
       ],
       objects: [
         {
           application: 'Test Native Changes',
           entitlement: 'APM Live Changes for other items',
+          description: 'APM Live Changes for other items',
           id: 1,
         },
         {
           application: 'Test Native Changes',
           entitlement: 'APM Live Changes for other items',
+          description: 'APM Live Changes for other items',
           id: 2,
         },
         {
           application: 'Test Native Changes',
           entitlement: 'APM Live Changes for other items',
+          description: 'APM Live Changes for other items',
           id: 3,
         },
       ],
@@ -199,7 +202,6 @@ export default function DataGrid({
       rows: response.objects,
       headers: response.headers,
       rowCount: response.count,
-      innerTableHeaders: response.innerTableHeaders,
     };
   };
 

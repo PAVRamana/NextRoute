@@ -56,8 +56,8 @@ export default function AccessModalUserSection() {
 
   return (
     <Styled.Container>
-      <Typography variant='h6' gutterBottom>
-        SELECT ACCESS MODEL USER
+      <Typography variant='button' display='block' gutterBottom>
+        Override Manager Approval
       </Typography>
       <Styled.AccessModalUserSection>
         <Styled.FieldContainer>

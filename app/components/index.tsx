@@ -15,23 +15,20 @@ export default function LandingPage() {
   const [invalidUserLink, setInvalidUserLink] = React.useState<boolean>(false);
 
   const noWorkItems = false;
-  const queryParams = new URLSearchParams(location.search);
-  const formType = queryParams.get('formType');
-  const formId = queryParams.get('id');
+  const queryParams = decodeURIComponent(location.search);
+  const elements = queryParams.split(':');
 
   React.useEffect(() => {
-    if (formId && formId !== '123456') {
+    if (elements && elements?.length > 1 && elements[2] !== '123456') {
       setInvalidUserLink(true);
       return;
-    }
-    if (formType) {
-      setActiveStep(
-        formType === 'helpdesk' ? 1 : formType === 'approval' ? 2 : 0
-      );
+    } else if (elements && elements?.length > 1) {
+      const formId = elements[1];
+      setActiveStep(formId === '100' ? 1 : formId === '101' ? 2 : 0);
     } else {
       setActiveStep(0);
     }
-  }, [formType, formId]);
+  }, []);
 
   return (
     <>

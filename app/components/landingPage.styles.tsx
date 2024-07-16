@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 
 export const BodyContainer = styled.div`
-  padding: 30px;
+  padding: 20px;
   background: #f2f5f7;
 `;
 
 export const WorkItemContainer = styled.div<{ $isEmptyWorkItems: boolean }>`
-  padding: 70px;
-  border: ;
-  border: ${(p) =>
-    p.$isEmptyWorkItems ? '0px solid #fff' : '1px solid #e2e2e2'};
+  padding: 30px;
   align-items: center;
   text-align: center;
   justify-content: center;

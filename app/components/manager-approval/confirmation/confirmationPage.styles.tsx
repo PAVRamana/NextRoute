@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 30px;
+  padding: 1px;
 `;
 
 export const EmptyWrapper = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 `;
 
 export const Line = styled.hr`
@@ -20,7 +20,6 @@ export const Line = styled.hr`
 export const MainRoot = styled.div`
   border: 1px solid #e2e2e2;
   background: #fff;
-  width: 40%;
 `;
 
 export const RootContainer = styled.div`
@@ -63,8 +62,8 @@ export const PersonalInfoSection = styled.div`
 export const CompanyInfoSection = styled.div``;
 
 export const ConfirmationContainer = styled.div`
-  display: flex;
-  gap: 10px;
+  display: grid;
+  gap: 2px;
 `;
 
 export const ConfirmationSection = styled.div`
@@ -74,11 +73,12 @@ export const ConfirmationSection = styled.div`
   padding: 20px;
   background: #fff;
   border-bottom: 1px solid #dddddd;
-  margin-bottom: 3px;
 `;
 
 export const ConfirmationSectionContainer = styled.div`
-  width: 40%;
+  display: flex;
+  gap: 2px;
+  width: 85%;
 `;
 
 export const ApprovalRate = styled.div`
@@ -86,11 +86,9 @@ export const ApprovalRate = styled.div`
 `;
 
 export const AccessDetails = styled.div`
-  grid-auto-flow: row;
-  grid-template-columns: 1fr 1fr;
-  display: grid;
-  gap: 5px;
-  margin-top: 1px;
+  display: flex;
+  gap: 0;
+  border: 1px solid #dddddd;
 `;
 
 export const ApprovalRateText = styled.div`
@@ -122,14 +120,7 @@ export const SubLine = styled.hr`
 `;
 
 export const ChartSection = styled.div`
-  border: 1px solid #e2e2e2;
   background: #fff;
-  border-bottom: 1px solid #dddddd;
-`;
-
-export const ConfirmationAccessDetailsSection = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const TotalInnerDetails = styled.div`

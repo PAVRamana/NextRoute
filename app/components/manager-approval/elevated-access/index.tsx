@@ -3,54 +3,105 @@
 import * as React from 'react';
 import * as Styled from './elevatedAccess.styles';
 import InstructionsNote from '../../common/instructions-note';
+import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch } from '../../common/service/redux/store';
 import { useAppSelectorHook } from '../../common/service/hook/useAppSelectorHook';
-import DataGrid, { RowSelections } from '../../common/components/datagrid';
 import { setStep4Info } from '../../common/service/redux/slices/approvalsSlice';
+import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 
-export default function ElevatedAccess() {
+const columns: GridColDef[] = [
+  { field: 'application', headerName: 'Application Name', flex: 1 },
+  { field: 'entitlement', headerName: 'Entitlement', flex: 1 },
+  { field: 'description', headerName: 'Description', flex: 1 },
+  {
+    field: 'comment',
+    headerName: 'Comment',
+    headerAlign: 'center',
+    align: 'center',
+    sortable: false,
+    flex: 1,
+    renderCell: (params) => {
+      const onClick = (e: any) => {
+        e.stopPropagation(); // don't select this row after clicking
+      };
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '18px',
+          }}
+        >
+          <EditIcon
+            style={{ color: '#3A765A', width: '16px', height: '16px' }}
+          />
+        </div>
+      );
+    },
+  },
+];
+
+const rows = [
+  {
+    id: 1,
+    application: 'Test Native Changes',
+    entitlement: 'APM Live Changes for other items',
+    description: 'APM Live Changes for other items',
+  },
+  {
+    id: 2,
+    application: 'Test Native Changes',
+    entitlement: 'APM Live Changes for other items',
+    description: 'APM Live Changes for other items',
+  },
+  {
+    id: 3,
+    application: 'Test Native Changes',
+    entitlement: 'APM Live Changes for other items',
+    description: 'APM Live Changes for other items',
+  },
+];
+
+export default function GeneralAccess() {
   const dispatch = useAppDispatch();
   const { approvalsData } = useAppSelectorHook();
   const { step4Info } = approvalsData;
   const { selectedElevatedEntitilementData } = step4Info;
 
-  const saveSelectedRowsData = (selectedRows: any) => {
+  const [selectionModel, setSelectionModel] =
+    React.useState<GridRowSelectionModel>();
+
+  const dispatchRowSelections = (selectedRows: any) => {
     dispatch(
       setStep4Info({
         data: {
           ...step4Info,
           selectedElevatedEntitilementData: {
-            rows: selectedRows?.map((i: any) => i.original),
+            rows: selectedRows,
           },
         },
       })
     );
   };
 
-  const getPreselectedRowsData = (data: any): RowSelections => {
-    if (data?.length > 0) {
-      const preSelectedIndexData: any = {};
-
+  React.useEffect(() => {
+    if (rows.length > 0) {
+      const data: any = [];
       if (selectedElevatedEntitilementData?.rows?.length === 0) {
-        data?.forEach((row: any, index: number) => {
-          preSelectedIndexData['' + index] = true;
-        });
-        return preSelectedIndexData;
+        setSelectionModel(rows.map((i: any) => i.id));
+        dispatchRowSelections(rows);
       } else {
         selectedElevatedEntitilementData?.rows?.forEach((selectedItem: any) => {
-          data?.forEach((row: any, index: number) => {
+          rows?.forEach((row: any) => {
             if (selectedItem?.id === row?.id) {
-              preSelectedIndexData['' + index] = true;
+              data.push(row);
             }
           });
         });
-        if (Object.keys(preSelectedIndexData)?.length > 0) {
-          return preSelectedIndexData;
-        }
+        setSelectionModel(data.map((i: any) => i.id));
       }
     }
-    return {};
-  };
+  }, [rows]);
 
   return (
     <Styled.Container>
@@ -65,22 +116,28 @@ export default function ElevatedAccess() {
       />
       <Styled.GeneralAccessContainer>
         <DataGrid
-          apiUrl={'/test'}
-          preselectedRowsData={getPreselectedRowsData}
-          saveSelectedRowsData={saveSelectedRowsData}
-          //getDataGridPayload={getDataGridPayload}
-          updateRowSelections={true}
-          isPreSelectedRowsExist={true}
-          isRowSelectionRequired={true}
-          isPaginationRequired={false}
-          tableColumnSize={{
-            size: 150,
-            minSize: 20,
-            maxSize: 200,
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
           }}
-          //applyFilterOnTable={executeFilterOnTable}
-          //resetExecuteFilterFlag={() => setExecuteFilterOnTable(false)}
-          isTableCellRequired={true}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          rowSelectionModel={selectionModel}
+          onRowSelectionModelChange={(e) => {
+            setSelectionModel(e);
+            const selectedIDs = new Set(e);
+            const selectedRows = rows.filter((r) => selectedIDs.has(r.id));
+            dispatchRowSelections(selectedRows);
+          }}
+          disableColumnMenu
+          hideFooter={true}
+          hideFooterPagination={true}
+          disableColumnFilter
+          disableColumnSelector
+          disableColumnSorting
         />
       </Styled.GeneralAccessContainer>
       <Styled.EmptyWrapper />

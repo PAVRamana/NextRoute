@@ -32,7 +32,9 @@ const initialState: ApprovalsInitialStateType = {
         rows: [],
       },
     },
-    step5Info: {},
+    step5Info: {
+      comfirmationDetails: {},
+    },
   },
 };
 

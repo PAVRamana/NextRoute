@@ -10,46 +10,11 @@ export const Container = styled.div`
   }
 `;
 
-export const Home = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-`;
-
-export const HomeContainer = styled.div`
-  font-size: 13.7px;
-  font-weight: 500;
-  line-height: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  letter-spacing: 0.01em;
-  display: flex;
-  gap: 50px;
-`;
-
-export const UserName = styled.div`
-  padding: 10px;
-  background: #426da9;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  color: #fff;
-  font-weight: 500;
-`;
-
 export const UserSection = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   margin-right: 20px;
 `;

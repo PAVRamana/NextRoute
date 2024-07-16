@@ -2,7 +2,7 @@
 
 import { Typography } from '@mui/material';
 import * as React from 'react';
-import RenderTypography from '../../common/components/typography';
+import DataTable from '../../common/components/datatable';
 import InstructionsNote from '../../common/instructions-note';
 import * as Styled from './newHireSection.styles';
 
@@ -11,30 +11,49 @@ type NewHireSectionTypes = {
 };
 
 export default function NewHireSection({ isApproval }: NewHireSectionTypes) {
-  const userData = [
-    { title: 'Display Name', value: 'DMatheson' },
-    { title: 'User ID', value: '12142134' },
-    { title: 'Employee ID', value: '213113421' },
-  ];
-
-  const personalData = [
-    { title: 'Job Family Name', value: 'D. Matheson' },
-    { title: 'Employment Status', value: 'Unknown' },
-    { title: 'Last Hire Date', value: '01/12/2022' },
-    { title: 'Work Location', value: 'Detroit HQ' },
-  ];
-
-  const companyData = [
-    { title: 'Company Name', value: 'Point72' },
-    { title: 'Department Desc.', value: 'Information Technology' },
-    { title: 'Hiring Manager', value: 'Sheila Thompson' },
-    { title: 'Approval Manager', value: 'Dave Hayes' },
-  ];
+  const tableData = {
+    headers: [
+      'First Name',
+      'Last Name',
+      'Job Title',
+      'Job Family Name',
+      'Work Location',
+      'Department Desc',
+      'Company Name',
+      'User ID',
+      'Employee ID',
+      'Last Hire Date',
+      'Employment Status',
+      'Hiring Manager',
+      'Manager Department Id',
+      'Approval Manager',
+      'Request Submitted By',
+    ],
+    objects: [
+      {
+        'First Name': 'Dave',
+        'Last Name': 'Matheson',
+        'Job Title': 'Consultant',
+        'Job Family Name': 'Contingent Empployee',
+        'Work Location': 'STAM72',
+        'Department Desc': '9980 - Information Security',
+        'Company Name': 'Point72, LP',
+        'User ID': 'AC74374',
+        'Employee ID': '8403',
+        'Last Hire Date': '12-July-2024',
+        'Employment Status': 'T',
+        'Hiring Manager': 'Eric Linden',
+        'Manager Department Id': '9940',
+        'Approval Manager': 'Mark Narcrso',
+        'Request Submitted By': 'Tech- PC Support',
+      },
+    ],
+  };
 
   return (
     <Styled.Container>
       <InstructionsNote
-        title='NEW HIRE DETAILS'
+        title='NEW HIRE USER DETAILS'
         notes={[
           'Below is the details of the new hire. Please review.',
           'When done, click the green Next button at the bottom.',
@@ -43,61 +62,12 @@ export default function NewHireSection({ isApproval }: NewHireSectionTypes) {
       <Styled.MainRoot>
         <Styled.UserInfoSection>
           <Styled.UserInfoTitleSection>
-            <Typography variant='h5' gutterBottom style={{ fontWeight: '700' }}>
-              Dave Matheson
-            </Typography>
-            <Typography variant='h6' gutterBottom>
-              System Administrator
+            <Typography variant='h5' style={{ fontWeight: '500' }}>
+              Dave Matheson (8403)
             </Typography>
           </Styled.UserInfoTitleSection>
-          <Styled.UserSectionContainer>
-            {userData?.map((item, index: number) => {
-              return (
-                <div key={index}>
-                  <RenderTypography title={item?.title} />
-                  <Typography variant='body2'>{item?.value}</Typography>
-                </div>
-              );
-            })}
-          </Styled.UserSectionContainer>
         </Styled.UserInfoSection>
-        <Styled.RootContainer>
-          <Styled.PersonalInfoSection>
-            <Typography variant='h6' gutterBottom>
-              Personal Info
-            </Typography>
-            <Styled.SectionContainer>
-              {personalData?.map((item, index: number) => {
-                return (
-                  <Styled.SectionInfo key={index}>
-                    <RenderTypography title={item?.title} />
-                    <Typography variant='body2' gutterBottom>
-                      {item?.value}
-                    </Typography>
-                  </Styled.SectionInfo>
-                );
-              })}
-            </Styled.SectionContainer>
-          </Styled.PersonalInfoSection>
-          <Styled.Line />
-          <Styled.CompanyInfoSection>
-            <Typography variant='h6' gutterBottom>
-              Company Info
-            </Typography>
-            <Styled.SectionContainer>
-              {companyData?.map((item, index: number) => {
-                return (
-                  <Styled.SectionInfo key={index}>
-                    <RenderTypography title={item?.title} />
-                    <Typography variant='body2' gutterBottom>
-                      {item?.value}
-                    </Typography>
-                  </Styled.SectionInfo>
-                );
-              })}
-            </Styled.SectionContainer>
-          </Styled.CompanyInfoSection>
-        </Styled.RootContainer>
+        <DataTable data={tableData} />
       </Styled.MainRoot>
       {isApproval && <Styled.EmptyWrapper />}
     </Styled.Container>
