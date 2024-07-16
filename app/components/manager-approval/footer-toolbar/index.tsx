@@ -17,19 +17,19 @@ function ManagerFooterToolbar({
   moveToDashboard,
 }: FooterToolbarTypes) {
   const previousButtonActions = [
-    'PREVIOUS: DASHBOARD',
-    'PREVIOUS: HIRE DETAILS',
-    'PREVIOUS: SELECT USERS',
-    'PREVIOUS: GENERAL ACCESS',
-    'PREVIOUS: ELEVATED ACCESS',
+    'Previous: Dashboard',
+    'Previous: New Hire Details',
+    'Previous: Select users',
+    'Previous: General Access',
+    'Previous: Elevated Access',
   ];
 
   const nextButtonActions = [
-    'NEXT: SELECT USERS',
-    'NEXT: GENERAL ACCESS',
-    'NEXT: ELEVATED ACCESS',
-    'NEXT: CONFIRMATION',
-    'NEXT: SUBMIT CHANGES',
+    'Next: Select users',
+    'Next: General Access',
+    'Next: Elevated Access',
+    'Next: Confirmation',
+    'Next: Submit Changes',
   ];
 
   const { approvalsData } = useAppSelectorHook();
@@ -59,7 +59,12 @@ function ManagerFooterToolbar({
         <Styled.FooterToolbarSectionContainer>
           <Button
             variant='outlined'
-            style={{ color: '#3a765a', borderColor: '#3a765a' }}
+            size='small'
+            style={{
+              color: '#3a765a',
+              borderColor: '#3a765a',
+              textTransform: 'none',
+            }}
             onClick={() => {
               if (activeStep === 0) {
                 moveToDashboard();
@@ -76,7 +81,8 @@ function ManagerFooterToolbar({
           />
           <Styled.FooterRightSection>
             <Button
-              style={{ color: '#3a765a' }}
+              style={{ color: '#3a765a', textTransform: 'none' }}
+              size='small'
               onClick={() => {
                 moveToDashboard();
               }}
@@ -84,8 +90,10 @@ function ManagerFooterToolbar({
               Cancel
             </Button>
             <Button
+              style={{ textTransform: 'none' }}
               variant='contained'
               color='success'
+              size='small'
               disabled={isDisabled(activeStep)}
               onClick={() => {
                 if (activeStep === 4) {

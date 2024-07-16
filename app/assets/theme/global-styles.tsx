@@ -36,4 +36,7 @@ export const GlobalStyles = createGlobalStyle`
       padding-bottom: 5px;
     }
   }
+  .MuiDialogTitle-root{
+    background: #f9fbfc;
+  }
 `;

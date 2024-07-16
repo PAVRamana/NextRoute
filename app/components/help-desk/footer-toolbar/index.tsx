@@ -14,23 +14,31 @@ function HelpDeskFooterToolbar({ onClickDashboard }: FooterToolbarTypes) {
         <Styled.FooterToolbarSectionContainer>
           <Button
             variant='outlined'
-            style={{ color: '#3a765a', borderColor: '#3a765a' }}
+            style={{
+              color: '#3a765a',
+              borderColor: '#3a765a',
+              textTransform: 'none',
+            }}
             onClick={onClickDashboard}
           >
-            PREVIOUS: DASHBOARD
+            Previous: Dashboard
           </Button>
           <Styled.FooterRightSection>
-            <Button style={{ color: '#3a765a' }} onClick={onClickDashboard}>
+            <Button
+              style={{ color: '#3a765a', textTransform: 'none' }}
+              onClick={onClickDashboard}
+            >
               Cancel
             </Button>
             <Button
               variant='contained'
               color='success'
+              style={{ textTransform: 'none' }}
               onClick={() => {
                 alert('submit');
               }}
             >
-              Submit changes
+              Submit Changes
             </Button>
           </Styled.FooterRightSection>
         </Styled.FooterToolbarSectionContainer>
