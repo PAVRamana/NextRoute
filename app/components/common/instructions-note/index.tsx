@@ -17,12 +17,8 @@ export default function InstructionsNote({
 }: InstructionsNoteTypes) {
   return (
     <>
-      <Body1Typography title={title} />
-      <Styled.Line />
       <Styled.InstructionSelction>
-        <Typography variant='button' display='block' gutterBottom>
-          INSTRUCTIONS
-        </Typography>
+        <Body1Typography title={title} />
         <Tooltip
           placement='bottom-end'
           title={

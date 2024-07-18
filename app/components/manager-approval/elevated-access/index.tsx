@@ -19,6 +19,30 @@ import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import RenderTypography from '../../common/components/typography';
 
+let rows = [
+  {
+    id: 1,
+    application: 'Test Native Changes',
+    entitlement: 'APM Live Changes for other items',
+    description: 'APM Live Changes for other items',
+    comment: '',
+  },
+  {
+    id: 2,
+    application: 'Test Native Changes1',
+    entitlement: 'APM Live Changes for other items1',
+    description: 'APM Live Changes for other items1',
+    comment: '',
+  },
+  {
+    id: 3,
+    application: 'Test Native Changes2',
+    entitlement: 'APM Live Changes for other items2',
+    description: 'APM Live Changes for other items2',
+    comment: '',
+  },
+];
+
 export default function GeneralAccess() {
   const dispatch = useAppDispatch();
   const { approvalsData } = useAppSelectorHook();
@@ -27,10 +51,32 @@ export default function GeneralAccess() {
 
   const [open, setOpen] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState();
+  const [comment, setComment] = React.useState('');
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const updatedData = () => {
+    const currentDataObj = JSON.parse(
+      JSON.stringify(selectedElevatedEntitilementData?.rows)
+    );
+
+    const currentRows = JSON.parse(JSON.stringify(rows));
+    if (currentDataObj?.length > 0) {
+      currentRows.forEach((i: any) => {
+        const isRowExist = currentDataObj?.filter(
+          (item: any) => item.id === i.id
+        );
+        if (isRowExist?.length > 0) {
+          i.comment = isRowExist[0]?.comment;
+        }
+      });
+    }
+    return currentRows;
+  };
+
+  const [dataRows, setDataRows] = React.useState(updatedData());
 
   const [selectionModel, setSelectionModel] =
     React.useState<GridRowSelectionModel>();
@@ -48,6 +94,54 @@ export default function GeneralAccess() {
     );
   };
 
+  const updateComment = () => {
+    const currentDataObj = JSON.parse(
+      JSON.stringify(selectedElevatedEntitilementData?.rows)
+    );
+
+    currentDataObj.forEach((item: any) => {
+      if (item.id === (selectedItem as any)?.id) {
+        item.comment = comment;
+      }
+    });
+    dispatchRowSelections(currentDataObj);
+
+    const currentData = JSON.parse(JSON.stringify(dataRows));
+    const updatedRows = currentData.map((i: any) => {
+      if (i.id === (selectedItem as any)?.id) {
+        i.comment = comment;
+      }
+      return i;
+    });
+
+    setDataRows(updatedRows);
+    setComment('');
+    setOpen(false);
+  };
+
+  const isCommentsExist = () => {
+    return dataRows?.filter((i) => i.comment)?.length > 0;
+  };
+
+  const getIconColor = (id: number) => {
+    const isSelected = selectedElevatedEntitilementData?.rows.filter(
+      (selectedItem: any) => selectedItem?.id === id
+    );
+
+    if (isSelected?.length > 0) {
+      return isSelected[0].comment ? 'green' : 'red';
+    } else {
+      return 'black';
+    }
+  };
+
+  const isRowSelected = (id: number) => {
+    const isSelected = selectedElevatedEntitilementData?.rows.filter(
+      (selectedItem: any) => selectedItem?.id === id
+    );
+    return isSelected?.length > 0;
+  };
+
   const columns: GridColDef[] = [
     { field: 'application', headerName: 'Application Name', flex: 1 },
     { field: 'entitlement', headerName: 'Entitlement', flex: 1 },
@@ -55,8 +149,8 @@ export default function GeneralAccess() {
     {
       field: 'comment',
       headerName: 'Comment',
-      headerAlign: 'center',
-      align: 'center',
+      headerAlign: isCommentsExist() ? 'left' : 'center',
+      align: isCommentsExist() ? 'left' : 'center',
       sortable: false,
       flex: 1,
       renderCell: (params) => {
@@ -64,61 +158,58 @@ export default function GeneralAccess() {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
-              margin: '18px',
+              justifyContent: isCommentsExist() ? 'flex-start' : 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              // opacity: params?.row?.comment ? 1 : 0.5,
+              gap: '10px',
+              margin: params?.row?.comment ? '0px' : '20px 0px',
             }}
             onClick={(e: any) => {
               e.stopPropagation();
-              setOpen(true);
-              setSelectedItem(params?.row);
+              if (isRowSelected(params?.row?.id)) {
+                setOpen(true);
+                setSelectedItem(params?.row);
+              }
             }}
           >
             <EditIcon
-              style={{ color: '#3A765A', width: '16px', height: '16px' }}
+              style={{
+                width: '16px',
+                height: '16px',
+                color: params?.row?.comment
+                  ? 'green'
+                  : getIconColor(params?.row?.id),
+              }}
             />
+            <div
+              style={{
+                wordBreak: 'break-word',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+              title={params?.row?.comment}
+            >
+              {params?.row?.comment}
+            </div>
           </div>
         );
       },
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      application: 'Test Native Changes',
-      entitlement: 'APM Live Changes for other items',
-      description: 'APM Live Changes for other items',
-    },
-    {
-      id: 2,
-      application: 'Test Native Changes',
-      entitlement: 'APM Live Changes for other items',
-      description: 'APM Live Changes for other items',
-    },
-    {
-      id: 3,
-      application: 'Test Native Changes',
-      entitlement: 'APM Live Changes for other items',
-      description: 'APM Live Changes for other items',
-    },
-  ];
-
   React.useEffect(() => {
     if (rows.length > 0) {
       const data: any = [];
-      if (selectedElevatedEntitilementData?.rows?.length === 0) {
-        setSelectionModel(rows.map((i: any) => i.id));
-        dispatchRowSelections(rows);
-      } else {
-        selectedElevatedEntitilementData?.rows?.forEach((selectedItem: any) => {
-          rows?.forEach((row: any) => {
-            if (selectedItem?.id === row?.id) {
-              data.push(row);
-            }
-          });
+      selectedElevatedEntitilementData?.rows?.forEach((selectedItem: any) => {
+        rows?.forEach((row: any) => {
+          if (selectedItem?.id === row?.id) {
+            data.push(row);
+          }
         });
-        setSelectionModel(data.map((i: any) => i.id));
-      }
+      });
+      setSelectionModel(data.map((i: any) => i.id));
     }
   }, [rows]);
 
@@ -135,7 +226,7 @@ export default function GeneralAccess() {
       />
       <Styled.GeneralAccessContainer>
         <DataGrid
-          rows={rows}
+          rows={dataRows ?? []}
           columns={columns}
           initialState={{
             pagination: {
@@ -189,20 +280,24 @@ export default function GeneralAccess() {
             <CloseIcon />
           </IconButton>
           <DialogContent dividers>
-            <div style={{ display: 'grid', gap: '25px' }}>
-              <Typography gutterBottom>
+            <div style={{ display: 'grid', gap: '20px' }}>
+              <Typography
+                variant='body1'
+                style={{ fontSize: '13px' }}
+                gutterBottom
+              >
                 Please provide a comment for approval of this entitlement
               </Typography>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
                   <RenderTypography title={'Application Name'} />
-                  <Typography gutterBottom>
+                  <Typography variant='body1' style={{ fontSize: '13px' }}>
                     {(selectedItem as any)?.application}
                   </Typography>
                 </div>
                 <div>
                   <RenderTypography title={'Entitlement'} />
-                  <Typography gutterBottom>
+                  <Typography variant='body1' style={{ fontSize: '13px' }}>
                     {(selectedItem as any)?.entitlement}
                   </Typography>
                 </div>
@@ -217,6 +312,10 @@ export default function GeneralAccess() {
                   multiline
                   rows={2}
                   sx={{ width: 500 }}
+                  value={comment ? comment : (selectedItem as any)?.comment}
+                  onChange={(e: any) => {
+                    setComment(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -229,7 +328,7 @@ export default function GeneralAccess() {
               variant='contained'
               color='success'
               style={{ textTransform: 'none' }}
-              onClick={handleClose}
+              onClick={updateComment}
             >
               Post Comment
             </Button>

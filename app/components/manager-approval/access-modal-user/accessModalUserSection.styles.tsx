@@ -40,4 +40,7 @@ export const Line = styled.hr`
 export const SelectedModal = styled.div`
   display: flex;
   gap: 25px;
+  margin: 10px 0px;
+  text-align: center;
+  align-items: center;
 `;

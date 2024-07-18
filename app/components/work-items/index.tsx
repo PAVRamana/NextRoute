@@ -46,10 +46,6 @@ export default function WorkItemsPage({
 
   return (
     <Styled.Container>
-      <Typography variant='h5'>
-        Welcome back, {session?.user?.firstname}
-      </Typography>
-      <Styled.Line />
       <Styled.WorkItemsInfo>
         <Styled.WorkItemsIconInfo>
           <Typography variant='button' display='block' gutterBottom>
@@ -81,13 +77,20 @@ export default function WorkItemsPage({
             <Styled.FormTitle onClick={() => onClickWorkItem(1)}>
               <Styled.FormImageContainer>
                 <Image src={formIcon} alt='' width={15} height={15} />
-                <Typography variant='subtitle1' gutterBottom>
+                <Typography variant='body1' gutterBottom>
                   Action Form
                 </Typography>
               </Styled.FormImageContainer>
             </Styled.FormTitle>
             <Styled.FormRootContainer>
-              <Typography variant='button' display='block' gutterBottom>
+              <Typography
+                variant='button'
+                display='block'
+                gutterBottom
+                style={{
+                  textTransform: 'none',
+                }}
+              >
                 Level 1 Approval: Account Change for Dave Matheson
               </Typography>
               <DataTable data={helpdeskFormData} width='800px' border={true} />
@@ -102,13 +105,20 @@ export default function WorkItemsPage({
             <Styled.FormTitle onClick={() => onClickWorkItem(2)}>
               <Styled.FormImageContainer>
                 <Image src={formIcon} alt='' width={15} height={15} />
-                <Typography variant='subtitle1' gutterBottom>
+                <Typography variant='body1' gutterBottom>
                   Access Approval
                 </Typography>
               </Styled.FormImageContainer>
             </Styled.FormTitle>
             <Styled.FormRootContainer>
-              <Typography variant='button' display='block' gutterBottom>
+              <Typography
+                variant='button'
+                display='block'
+                gutterBottom
+                style={{
+                  textTransform: 'none',
+                }}
+              >
                 Level 2 Approval: Account Change for Reena Prakish
               </Typography>
               <DataTable data={approvalData} width='800px' border={true} />

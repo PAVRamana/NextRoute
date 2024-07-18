@@ -10,7 +10,7 @@ export const MainRoot = styled.div`
 
 export const UserInfoSection = styled.div`
   padding: 12px 15px;
-  background: #fff;
+  background: #f9fbfc;
   border-bottom: 1px solid #dddddd;
 `;
 

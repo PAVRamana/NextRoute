@@ -167,22 +167,33 @@ export default function AccessModalUserSection() {
       {selectedModalData.modelUser &&
         Object.keys(selectedManagerInfo)?.length > 0 && (
           <Styled.SelectedModal>
-            <Typography variant='body1' gutterBottom>
+            <Typography
+              variant='body1'
+              gutterBottom
+              style={{ fontSize: '13px' }}
+            >
               {selectedModalData.modelUser}
             </Typography>
-            <EastIcon style={{ color: '#246099' }} />
-            <Typography variant='body1' gutterBottom>
+            <EastIcon
+              style={{ color: '#246099', width: '15px', height: '15px' }}
+            />
+            <Typography
+              variant='body1'
+              gutterBottom
+              style={{ fontSize: '13px' }}
+            >
               {(selectedManagerInfo as any)?.title}
             </Typography>
           </Styled.SelectedModal>
         )}
-      <Styled.Line />
       <Styled.FieldContainer>
-        <RenderTypography title={'Note:'} />
-        <Typography variant='body2' gutterBottom>
-          You are requesting access for new hire Dave Matheson. If you would
-          like to get further notifications for this request, opt in below.
-        </Typography>
+        <div style={{ display: 'flex', gap: '5px' }}>
+          <RenderTypography title={'Note:'} />
+          <Typography variant='body2'>
+            You are requesting access for new hire Dave Matheson. If you would
+            like to get further notifications for this request, opt in below.
+          </Typography>
+        </div>
         <FormControlLabel
           control={
             <Checkbox
@@ -201,8 +212,8 @@ export default function AccessModalUserSection() {
             />
           }
           label={
-            <Typography variant='caption'>
-              INCLUDE ME IN FUTURE NOTIFICATIONS
+            <Typography variant='body2'>
+              Include me in future notifications
             </Typography>
           }
         />

@@ -41,6 +41,8 @@ export function Body1Typography({ title }: Body1TypographyTypes) {
         gutterBottom
         style={{
           fontWeight: '500',
+          textTransform: 'none',
+          fontSize: '14px',
         }}
       >
         {title}

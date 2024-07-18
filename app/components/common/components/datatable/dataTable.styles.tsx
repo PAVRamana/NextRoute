@@ -13,5 +13,9 @@ export const Conatiner = styled.div<{ $showBorder: boolean }>`
   th {
     font-weight: 500;
     background: #f9fbfc;
+    padding: 10px 10px;
+  }
+  tbody > tr > td {
+    padding: 10px 10px;
   }
 `;

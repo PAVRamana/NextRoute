@@ -108,6 +108,8 @@ export default function ElevatedAccess() {
           disableColumnMenu
           disableColumnFilter
           disableColumnSelector
+          hideFooter={true}
+          hideFooterPagination={true}
           disableColumnSorting
         />
       </Styled.GeneralAccessContainer>
