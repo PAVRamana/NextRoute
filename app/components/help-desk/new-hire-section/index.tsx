@@ -1,10 +1,13 @@
 'use client';
 
 import { Typography } from '@mui/material';
+import { useSession } from 'next-auth/react';
 import * as React from 'react';
 import DataTable from '../../common/components/datatable';
 import RenderTypography from '../../common/components/typography';
 import InstructionsNote from '../../common/instructions-note';
+import { usePostApi } from '../../common/service/api';
+import { URL } from '../../common/service/axios';
 import * as Styled from './newHireSection.styles';
 
 type NewHireSectionTypes = {
@@ -12,6 +15,22 @@ type NewHireSectionTypes = {
 };
 
 export default function NewHireSection({ isApproval }: NewHireSectionTypes) {
+  const { data: session } = useSession();
+
+  const { run, data, isResolved } = usePostApi();
+
+  const payload = {
+    indices: ['identities'],
+    query: {
+      query: session?.user.displayName,
+      fields: ['name'],
+    },
+  };
+
+  React.useEffect(() => {
+    run(URL.SEARCH, session?.accessToken, payload);
+  }, []);
+
   const tableData = [
     { 'First Name': 'Dave' },
     { 'Last Name': 'Matheson' },
