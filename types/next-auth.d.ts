@@ -14,6 +14,7 @@ declare module 'next-auth' {
       displayName: string;
     };
     accessToken: string;
+    error: any;
   }
 
   interface Profile {

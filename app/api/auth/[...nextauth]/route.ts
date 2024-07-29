@@ -49,6 +49,7 @@ export const authOptions: NextAuthOptions = {
       session.user.lastname = token.lastname as string;
       session.user.uid = token.name as string;
       session.user.displayName = token.displayName as string;
+      session.error = token.error;
       return session;
     },
   },
@@ -61,20 +62,18 @@ export const authOptions: NextAuthOptions = {
  */
 async function refreshAccessToken(apiUrl: string, token: any) {
   try {
-    const response = await axios.post(
-      `${apiUrl}/oauth/token`,
-      {
-        client_id: process.env.ISC_CLIENT_ID!,
-        client_secret: process.env.ISC_CLIENT_SECRET!,
-        grant_type: 'refresh_token',
-        refresh_token: token.refreshToken,
+    const reqParams = new URLSearchParams({
+      client_id: process.env.ISC_CLIENT_ID!,
+      client_secret: process.env.ISC_CLIENT_SECRET!,
+      grant_type: 'refresh_token',
+      refresh_token: token.refreshToken,
+    });
+
+    const response = await axios.post(`${apiUrl}/oauth/token?${reqParams}`, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
+    });
 
     const { access_token, expires_in, token_type, refresh_token } =
       response.data;
@@ -86,8 +85,10 @@ async function refreshAccessToken(apiUrl: string, token: any) {
       refreshToken: refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
-    console.error('Error refreshing access token:', error);
-    throw error;
+    return {
+      ...token,
+      error: 'RefreshAccessTokenError',
+    };
   }
 }
 

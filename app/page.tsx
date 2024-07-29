@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import {
   StyledEngineProvider,
   ThemeProvider as ThemeProviderMUI,
@@ -13,12 +13,19 @@ import { GlobalStyles } from './assets/theme/global-styles';
 import { getMuiTheme } from './assets/theme/theme';
 import { Provider } from 'react-redux';
 import store from './components/common/service/redux/store';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
 export default function Home() {
   const { data: session } = useSession();
   const theme = getMuiTheme();
+
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn();
+    }
+  }, [session]);
 
   return (
     <QueryClientProvider client={queryClient}>
