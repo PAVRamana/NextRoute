@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
 import { AccountsApi, Configuration } from 'sailpoint-api-client';
+import { authOptions } from './lib/auth';
 
 export default async function ServerComponent() {
   const session = await getServerSession(authOptions);

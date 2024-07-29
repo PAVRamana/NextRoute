@@ -9,6 +9,7 @@ export default {
     NEXTAUTH_SECRET: 'khfhhjfhwie57whewiky34thiuty3489thiug',
     NEXTAUTH_URL: 'http://localhost:3000',
   },
+  reactStrictMode: false,
   webpack: (config) => {
     config.resolve = {
       ...config.resolve,
