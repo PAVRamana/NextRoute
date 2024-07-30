@@ -39,4 +39,9 @@ export const GlobalStyles = createGlobalStyle`
   .MuiDialogTitle-root{
     background: #f9fbfc;
   }
+  .custom-select-all-cls{
+    font-weight: 500;
+    color: #000;
+    padding: 0 5px;
+  }
 `;
