@@ -3,7 +3,6 @@
 import { Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import * as React from 'react';
-import DataTable from '../../common/components/datatable';
 import RenderTypography from '../../common/components/typography';
 import InstructionsNote from '../../common/instructions-note';
 import { usePostApi } from '../../common/service/api';
@@ -16,20 +15,48 @@ type NewHireSectionTypes = {
 
 export default function NewHireSection({ isApproval }: NewHireSectionTypes) {
   const { data: session } = useSession();
+  const [tableData1, setTableData1] = React.useState<any>([]);
 
-  const { run, data, isResolved } = usePostApi();
-
-  const payload = {
-    indices: ['identities'],
-    query: {
-      query: session?.user.displayName,
-      fields: ['name'],
-    },
-  };
+  const { run, data, isResolved, error } = usePostApi();
 
   React.useEffect(() => {
-    run(URL.SEARCH, session?.accessToken, payload);
+    run(URL.SEARCH, session?.accessToken, {
+      indices: ['identities'],
+      query: {
+        query: 'Ranjan.Dalai',
+        fields: ['name'],
+      },
+    });
   }, []);
+
+  React.useEffect(() => {
+    if (error) {
+      console.log('error');
+    }
+  }, [error]);
+
+  React.useEffect(() => {
+    if (data && isResolved) {
+      const userData = data[0];
+      setTableData1([
+        { 'First Name': userData?.firstName },
+        { 'Last Name': userData?.lastName },
+        { 'Job Title': '' },
+        { 'Job Family Name': 'Contingent Empployee' },
+        { 'Work Location': 'STAM72' },
+        { 'Department Desc': '9980 - Information Security' },
+        { 'Company Name': 'Point72, LP' },
+        { 'User ID': 'AC74374' },
+        { 'Employee ID': '8403' },
+        { 'Last Hire Date': '12-July-2024' },
+        { 'Employment Status': 'T' },
+        { 'Hiring Manager': 'Eric Linden' },
+        { 'Manager Department Id': '9940' },
+        { 'Approval Manager': 'Mark Narcrso' },
+        { 'Request Submitted By': 'Tech- PC Support' },
+      ]);
+    }
+  }, [data, isResolved]);
 
   const tableData = [
     { 'First Name': 'Dave' },

@@ -13,9 +13,6 @@ export const Container = styled.div`
   .MuiDataGrid-columnHeader {
     outline: none !important;
   }
-  .MuiDataGrid-cell {
-    outline: none !important;
-  }
 `;
 
 export const GeneralAccessContainer = styled.div`

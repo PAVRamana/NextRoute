@@ -6,12 +6,38 @@ import InstructionsNote from '../../common/instructions-note';
 import { useAppDispatch } from '../../common/service/redux/store';
 import { useAppSelectorHook } from '../../common/service/hook/useAppSelectorHook';
 import { setStep3Info } from '../../common/service/redux/slices/approvalsSlice';
-import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridColDef,
+  GridRowSelectionModel,
+  GRID_CHECKBOX_SELECTION_COL_DEF,
+} from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
-  { field: 'application', headerName: 'Application Name', flex: 1 },
-  { field: 'entitlement', headerName: 'Entitlement', flex: 1 },
-  { field: 'description', headerName: 'Description', flex: 1 },
+  {
+    field: 'application',
+    headerName: 'Application Name',
+    flex: 1,
+    resizable: false,
+  },
+  {
+    field: 'entitlement',
+    headerName: 'Entitlement',
+    flex: 1,
+    resizable: false,
+  },
+  {
+    field: 'description',
+    headerName: 'Description',
+    flex: 1,
+    resizable: false,
+  },
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    width: 150,
+    resizable: false,
+    headerClassName: 'general-access-cls',
+  },
 ];
 
 const rows = [
@@ -75,6 +101,26 @@ export default function ElevatedAccess() {
       }
     }
   }, [rows]);
+
+  React.useEffect(() => {
+    setInterval(function () {
+      const gridHeader = document.querySelectorAll('.general-access-cls');
+      if (
+        gridHeader &&
+        gridHeader?.length > 0 &&
+        !document.getElementById('custom-select-all-id1')
+      ) {
+        const spanHeader =
+          gridHeader[gridHeader?.length - 1]?.firstChild?.firstChild?.firstChild
+            ?.firstChild;
+        var label = document.createElement('label');
+        label.id = 'custom-select-all-id1';
+        label.innerHTML = 'Select All';
+        label.className = 'custom-select-all-cls';
+        spanHeader?.insertBefore(label, spanHeader?.firstChild);
+      }
+    }, 100);
+  }, []);
 
   return (
     <Styled.Container>

@@ -7,7 +7,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch } from '../../common/service/redux/store';
 import { useAppSelectorHook } from '../../common/service/hook/useAppSelectorHook';
 import { setStep4Info } from '../../common/service/redux/slices/approvalsSlice';
-import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridColDef,
+  GridRowSelectionModel,
+  GRID_CHECKBOX_SELECTION_COL_DEF,
+} from '@mui/x-data-grid';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -98,12 +103,14 @@ export default function GeneralAccess() {
     const currentDataObj = JSON.parse(
       JSON.stringify(selectedElevatedEntitilementData?.rows)
     );
+    console.log(currentDataObj);
 
     currentDataObj.forEach((item: any) => {
       if (item.id === (selectedItem as any)?.id) {
         item.comment = comment;
       }
     });
+
     dispatchRowSelections(currentDataObj);
 
     const currentData = JSON.parse(JSON.stringify(dataRows));
@@ -120,7 +127,7 @@ export default function GeneralAccess() {
   };
 
   const isCommentsExist = () => {
-    return dataRows?.filter((i) => i.comment)?.length > 0;
+    return dataRows?.filter((i: any) => i?.comment)?.length > 0;
   };
 
   const getIconColor = (id: number) => {
@@ -197,6 +204,12 @@ export default function GeneralAccess() {
         );
       },
     },
+    {
+      ...GRID_CHECKBOX_SELECTION_COL_DEF,
+      headerClassName: 'elevated-access-cls',
+      resizable: false,
+      width: 150,
+    },
   ];
 
   React.useEffect(() => {
@@ -212,6 +225,27 @@ export default function GeneralAccess() {
       setSelectionModel(data.map((i: any) => i.id));
     }
   }, [rows]);
+
+  React.useEffect(() => {
+    var interval = setInterval(function () {
+      const gridHeader = document.querySelectorAll('.elevated-access-cls');
+      if (
+        gridHeader &&
+        gridHeader?.length > 0 &&
+        !document.getElementById('custom-select-all-id')
+      ) {
+        const spanHeader =
+          gridHeader[gridHeader?.length - 1]?.firstChild?.firstChild?.firstChild
+            ?.firstChild;
+        var label = document.createElement('label');
+        label.id = 'custom-select-all-id';
+        label.innerHTML = 'Select All';
+        label.className = 'custom-select-all-cls';
+        spanHeader?.insertBefore(label, spanHeader?.firstChild);
+        clearInterval(interval);
+      }
+    }, 100);
+  }, []);
 
   return (
     <Styled.Container>
@@ -240,7 +274,22 @@ export default function GeneralAccess() {
             setSelectionModel(e);
             const selectedIDs = new Set(e);
             const selectedRows = rows.filter((r) => selectedIDs.has(r.id));
-            dispatchRowSelections(selectedRows);
+
+            const selectedRowsData = JSON.parse(JSON.stringify(selectedRows));
+
+            const currentDataObj = JSON.parse(
+              JSON.stringify(selectedElevatedEntitilementData?.rows)
+            );
+
+            selectedRowsData?.forEach((i: any) => {
+              const isSelected = currentDataObj?.filter(
+                (selectedItem: any) => selectedItem.id === i.id
+              );
+              if (isSelected?.length > 0) {
+                i.comment = isSelected[0]?.comment;
+              }
+            });
+            dispatchRowSelections(selectedRowsData);
           }}
           disableColumnMenu
           hideFooter={true}
