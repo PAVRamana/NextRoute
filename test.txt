@@ -1,0 +1,18 @@
+6.	Copy Access API Calls
+•	Call the search API
+o	iterate through access ("access":  where type is ENTITLEMENT and requestable = true)
+     Possible Access Type - ROLE, ACCESS_PROFILE and ENTITLEMENT
+o	get the ids of all entitlements assigned to user
+o	Now call the search api to the details of all requestable entitlements assigned to the user , the sample request body JSON is given below
+{
+  "indices": [
+   "entitlements"
+  ],
+ "query": {
+       "query": "id:(b4cbc1ebf84e4396a220e318c4030542 or 95edc8b7c24e402cadfe0df3e08db096 or a1a6b1b89b5442cfb484df7871957b74)"
+  }
+}
+o	Now iterate all these entitlement details from above step
+	Page 1 : (General Access) , show all entitlements where privileged = false and requestable = true and tag is not "NOT_FOR_JOINER"
+	Page 2 : (Privileged Access) , show all entitlements where privileged = true and requestable= true and tag is not NOT_FOR_JOINER
+•	Based on the selected entitlements for copy access call the access request API to submit the access request.
