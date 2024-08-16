@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, account, profile }) {
       // First login
-
+      //console.log(account);
       if (account && user && profile) {
         token.accessToken = account.access_token;
         token.id = profile.id;
