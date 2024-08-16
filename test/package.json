@@ -1,0 +1,77 @@
+{
+  "name": "exp-ui-addaccess-mfe",
+  "version": "0.1.0",
+  "private": false,
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-table": "^8.17.3",
+    "@wayfarer/components": "^2.0.3",
+    "axios": "^0.21.4",
+    "exp-ui-web-components-mfe": "^0.3.0",
+    "react-hook-form": "^7.48.2",
+    "react-select": "^5.8.0",
+    "styled-components": "^6.0.7"
+  },
+  "devDependencies": {
+    "@microsoft/mgt-react": "^2.11.2",
+    "@types/lodash": "^4.14.181",
+    "@types/node": "^16.11.25",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.18",
+    "@types/styled-components": "^5.1.29",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "ajv": "^8.16.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.2",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "i": "^0.3.7",
+    "lint-staged": "^15.2.0",
+    "lodash": "^4.17.21",
+    "msw": "^0.36.8",
+    "npm": "^8.19.4",
+    "prettier": "^3.1.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "eslint src --fix --ext .ts,.tsx",
+    "pretty": "prettier --write \"**/*.{json,ts,tsx}\"",
+    "prepare": "husky install",
+    "precommit": "lint-staged",
+    "prepush": "npm run lint",
+    "zip": "./generate-zip.sh"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}
