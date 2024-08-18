@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "prod_start": "NODE_ENV=production node server.js",
-    "lint": "next lint",
-    "start": "npm run build && npm run prod_start"
+    "lint": "eslint app --fix --ext .ts,.tsx",
+    "pretty": "prettier --write \"**/*.{json,ts,tsx}\"",
+    "start:dev": "cp ./env/dev/next.config.mjs . && next build && node server.js",
+    "start:uat": "cp ./env/uat/next.config.mjs . && next build && node server.js",
+    "start:prod": "cp ./env/prod/next.config.mjs . && next build && node server.js"
   },
   "dependencies": {
     "@emotion/react": "latest",
@@ -17,6 +19,7 @@
     "@mui/styles": "^5.16.1",
     "@mui/x-charts": "^7.9.0",
     "@mui/x-data-grid": "^7.10.0",
+    "lefthook": "^1.7.14",
     "material-ui-popup-state": "^5.1.2",
     "moment": "^2.30.1",
     "next": "14.2.4",
