@@ -1,3 +1,0 @@
-{
-  "*.{ts,tsx},!/dist/*.*": ["eslint --fix", "prettier --write"]
-}
