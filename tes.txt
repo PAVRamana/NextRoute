@@ -1,0 +1,10 @@
+pre-commit:
+  commands:
+    eslint:
+      glob: '*.{js,ts,jsx,tsx}'
+      run: npx eslint {staged_files}
+pre-push:
+  parallel: true
+  commands:
+    lint-check:
+      run: npm run lint
