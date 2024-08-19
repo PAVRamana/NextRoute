@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
   env: {
-    ISC_BASE_API_URL: 'https://123-poc.api.identitynow-demo.com',
+    ISC_BASE_API_URL: 'https://dev-poc.api.identitynow-demo.com',
     ISC_BASE_URL: 'https://123-poc.identitynow-demo.com',
     ISC_CLIENT_ID: 'b8cef674-b262-4cbe-99af-8ee14e9d2395',
     ISC_CLIENT_SECRET:

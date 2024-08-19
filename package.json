@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
+    "start": "node server.js",
     "lint": "eslint app --fix --ext .ts,.tsx",
     "pretty": "prettier --write \"**/*.{json,ts,tsx}\"",
-    "start:dev": "cp ./env/dev/next.config.mjs . && next build && node server.js",
-    "start:uat": "cp ./env/uat/next.config.mjs . && next build && node server.js",
-    "start:prod": "cp ./env/prod/next.config.mjs . && next build && node server.js"
+    "copyrename:local": "cp ./env/next.config.local.mjs . && node -e \"require('fs').rename('./next.config.local.mjs', './next.config.mjs', function(err) { if (err) console.log(err); console.log('File successfully renamed!') })\"",
+    "copyrename:dev": "cp ./env/next.config.dev.mjs . && node -e \"require('fs').rename('./next.config.dev.mjs', './next.config.mjs', function(err) { if (err) console.log(err); console.log('File successfully renamed!') })\"",
+    "copyrename:uat": "cp ./env/next.config.uat.mjs . && node -e \"require('fs').rename('./next.config.uat.mjs', './next.config.mjs', function(err) { if (err) console.log(err); console.log('File successfully renamed!') })\"",
+    "copyrename:prod": "cp ./env/next.config.prod.mjs . && node -e \"require('fs').rename('./next.config.prod.mjs', './next.config.mjs', function(err) { if (err) console.log(err); console.log('File successfully renamed!') })\"",
+    "start:dev": "npm run copyrename:dev && next build && node server.js",
+    "start:uat": "npm run copyrename:uat && next build && node server.js",
+    "start:prod": "npm run copyrename:prod && next build && node server.js",
+    "start:local": "npm run copyrename:local && node server.js"
   },
   "dependencies": {
     "@emotion/react": "latest",
