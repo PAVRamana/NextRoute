@@ -8,3 +8,6 @@ pre-push:
   commands:
     lint-check:
       run: npm run lint
+
+
+        "copy": "node -e \"const fs = require('fs'); const data = fs.readFileSync('Staticfile'); fs.writeFileSync('build/Staticfile', data);\""
