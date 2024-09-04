@@ -5,8 +5,6 @@ import { Button } from '@mui/material';
 import { getCsrfToken } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import * as Styled from './page.styles';
-import Image from 'next/image';
-import myGif from '../../../components/1488.gif';
 
 export default function SignIn() {
   const buttonRef = useRef(null);
@@ -18,7 +16,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (csrfValue && buttonRef && buttonRef?.current) {
-      //(buttonRef?.current as any)?.click();
+      (buttonRef?.current as any)?.click();
     }
   }, [csrfValue]);
 
@@ -32,8 +30,6 @@ export default function SignIn() {
     <>
       <Header isLoadingPage={true} />
       <Styled.RootContainer>
-        <Image src={myGif} alt='my gif' height={50} width={50} />
-
         <form
           action='http://localhost:3000/api/auth/signin/identitySecureCloud'
           method='POST'

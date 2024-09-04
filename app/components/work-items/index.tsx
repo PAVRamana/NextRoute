@@ -20,6 +20,11 @@ export default function WorkItemsPage({
 }: WorkItemsPageTypes) {
   const { data: session } = useSession();
 
+  React.useEffect(() => {
+    console.log(localStorage.getItem('dummy'));
+    localStorage.setItem('dummy', '232');
+  });
+
   const helpdeskFormData = {
     headers: ['Owner', 'Requester', 'Requested Date', 'Assign to'],
     objects: [
