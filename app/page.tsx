@@ -27,6 +27,8 @@ export default function Home() {
     }
   }, [session]);
 
+  console.log(11);
+
   return (
     <QueryClientProvider client={queryClient}>
       <StyledEngineProvider injectFirst>

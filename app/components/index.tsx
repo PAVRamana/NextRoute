@@ -20,7 +20,7 @@ export default function LandingPage() {
 
   React.useEffect(() => {
     if (elements && elements?.length > 1 && elements[2] !== '123456=') {
-      setInvalidUserLink(true);
+      //setInvalidUserLink(true);
       return;
     } else if (elements && elements?.length > 1) {
       const formId = elements[1];
