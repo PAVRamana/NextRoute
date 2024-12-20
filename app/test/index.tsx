@@ -82,3 +82,22 @@ export default function HeaderPanel() {
     </>
   );
 }
+
+import { Person, AvatarSize } from '@microsoft/mgt-react';
+
+type PersonCardTypes = {
+  email: string;
+  avatarSize?: AvatarSize;
+};
+
+export default function PersonCard({ email, avatarSize }: PersonCardTypes) {
+  return (
+    <Person
+      personQuery={email}
+      showPresence={true}
+      personCardInteraction={1}
+      view={2}
+      avatarSize={avatarSize ?? 'large'}
+    />
+  );
+}
